@@ -1,15 +1,9 @@
 ﻿using Readify.Constant;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 
-namespace Readify.Entities
+namespace Readify.Dto
 {
-    [Table("User")]
-    public class User
+    public class UpdateUserDto
     {
-        [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
