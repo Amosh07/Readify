@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Readify.Dto;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Readify.DTOs.User;
 using Readify.Service.Interface;
 
 namespace Readify.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/User")]
     public class UserController(IUserServices userServices) : Controller

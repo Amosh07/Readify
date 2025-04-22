@@ -1,8 +1,8 @@
 ﻿using Readify.Constant;
 
-namespace Readify.Dto
+namespace Readify.DTOs.User
 {
-    public class UpdateUserDto
+    public class InsertUserDto
     {
         public string FirstName { get; set; }
 
@@ -13,7 +13,5 @@ namespace Readify.Dto
         public string ImageUrl { get; set; }
 
         public DateTime RegisteredDate { get; set; }
-
-        public bool IsActive { get; set; }
     }
 }
