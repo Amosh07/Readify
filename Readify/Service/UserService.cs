@@ -1,5 +1,5 @@
 ﻿using Readify.Data;
-using Readify.Dto;
+using Readify.DTOs.User;
 using Readify.Entities;
 using Readify.Service.Interface;
 

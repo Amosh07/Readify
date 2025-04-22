@@ -1,8 +1,8 @@
 ﻿using Readify.Constant;
 
-namespace Readify.Dto
+namespace Readify.DTOs.User
 {
-    public class InsertUserDto
+    public class GetAllUser
     {
         public string FirstName { get; set; }
 

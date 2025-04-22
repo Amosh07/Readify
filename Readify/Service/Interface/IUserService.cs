@@ -1,4 +1,5 @@
-﻿using Readify.Dto;
+﻿
+using Readify.DTOs.User;
 
 namespace Readify.Service.Interface
 {
