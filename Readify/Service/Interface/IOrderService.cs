@@ -12,7 +12,7 @@ namespace Readify.Service.Interface
 
         GetAllOrder GetById(Guid id);
 
-        void DeleteOrder(Guid id);
+        void DeleteOrder(int id);
 
         void UpdateOrder(Guid id, UpdateOrderDto orderDto);
     }

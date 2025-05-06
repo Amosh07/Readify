@@ -1,10 +1,9 @@
 ﻿using Readify.Data;
+using Readify.DTOs.Book;
 using Readify.DTOs.Order;
 using Readify.Entities;
 using Readify.Service.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
 
 namespace Readify.Service
 {
@@ -17,69 +16,106 @@ namespace Readify.Service
             _context = context;
         }
 
-        public void CreateOrder(CreateOrderDto orderDto)
+        public void AddOrder(InsertOrderDto orderDto)
         {
             try
             {
                 var order = new Order
                 {
-                    UserId = orderDto.UserId,
-                    OrderDate = DateTime.UtcNow,
-                    Status = OrderStatus.Pending, // Assuming enum exists
-                    TotalAmount = orderDto.OrderItems.Sum(oi => oi.Quantity * oi.Price),
-                    ShippingAddress = orderDto.ShippingAddress,
-                    PaymentMethod = orderDto.PaymentMethod
+                    OrderId = orderDto.OrderId,
+                    OrderAmount = orderDto.OrderAmount,
+                    TotalDiscount = orderDto.TotalDiscount,
+                    DiscountApplied = orderDto.DiscountApplied,
+                    OrderDate = orderDto.OrderDate,
+                    Status = orderDto.Status,
+                    IsCancelled = orderDto.IsCancelled,
+                    ClaimCode = orderDto.ClaimCode,
+                    ValidTill = orderDto.ValidTill,
+
                 };
 
                 _context.Orders.Add(order);
                 _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error adding order: " + ex.Message);
+            }
+        }
 
-                foreach (var item in orderDto.OrderItems)
-                {
-                    var orderItem = new OrderItem
-                    {
-                        OrderId = order.OrderId,
-                        BookId = item.BookId,
-                        Quantity = item.Quantity,
-                        Price = item.Price
-                    };
-                    _context.OrderItems.Add(orderItem);
-                }
+        public void CreateOrder(CreateOrderDto orderDto)
+        {
+            throw new NotImplementedException();
+        }
 
+        public void DeleteOrder(int id)
+        {
+            try
+            {
+                var order = _context.Orders.FirstOrDefault(o => o.OrderId == id);
+                if (order == null)
+                    throw new Exception("Book not found");
+
+                _context.Orders.Remove(order);
                 _context.SaveChanges();
             }
             catch (Exception ex)
             {
-                throw new Exception("Error creating order: " + ex.Message);
+                throw new Exception("Error deleting order: " + ex.Message);
             }
         }
 
-        public OrderDto GetOrderById(int id)
+        public List<GetAllOrder> GetAllOrders()
         {
             try
             {
-                var order = _context.Orders
-                    .Include(o => o.OrderItems)
-                    .FirstOrDefault(o => o.OrderId == id);
+                var orders = _context.Orders.ToList();
+                if (orders == null || !orders.Any())
+                    throw new Exception("No orders found");
 
+                var result = new List<GetAllOrder>();
+                foreach (var o in orders)
+                {
+                    result.Add(new GetAllOrder
+                    {
+                        OrderId = o.OrderId,
+                        OrderAmount = o.OrderAmount,
+                        TotalDiscount = o.TotalDiscount,
+                        DiscountApplied = o.DiscountApplied,
+                        OrderDate = o.OrderDate,
+                        Status = o.Status,
+                        IsCancelled = o.IsCancelled,
+                        ClaimCode = o.ClaimCode,
+                        ValidTill = o.ValidTill
+                    });
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error fetching orders: " + ex.Message);
+            }
+        }
+
+        public GetAllOrder GetById(int id)
+        {
+            try
+            {
+                var order = _context.Orders.FirstOrDefault(o => o.OrderId == id);
                 if (order == null)
                     throw new Exception("Order not found");
 
-                return new OrderDto
+                return new GetAllOrder
                 {
                     OrderId = order.OrderId,
-                    UserId = order.UserId,
+                    OrderAmount = order.OrderAmount,
+                    TotalDiscount = order.TotalDiscount,
+                    DiscountApplied = order.DiscountApplied,
                     OrderDate = order.OrderDate,
                     Status = order.Status,
-                    TotalAmount = order.TotalAmount,
-                    ShippingAddress = order.ShippingAddress,
-                    PaymentMethod = order.PaymentMethod,
-                    OrderItems = order.OrderItems.Select(oi => new OrderItemDto
-                    {
-                        BookId = oi.BookId,
-                        Quantity = oi.Quantity,
-                        Price = oi.Price
-                    }).ToList()
+                    ClaimCode = order.ClaimCode,
+                    ValidTill = order.ValidTill
+
                 };
             }
             catch (Exception ex)
@@ -88,42 +124,42 @@ namespace Readify.Service
             }
         }
 
-        public List<OrderSummaryDto> GetUserOrders(int userId)
+        public GetAllOrder GetById(Guid id)
         {
-            try
-            {
-                return _context.Orders
-                    .Where(o => o.UserId == userId)
-                    .Select(o => new OrderSummaryDto
-                    {
-                        OrderId = o.OrderId,
-                        OrderDate = o.OrderDate,
-                        Status = o.Status,
-                        TotalAmount = o.TotalAmount
-                    })
-                    .ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error fetching user orders: " + ex.Message);
-            }
+            throw new NotImplementedException();
         }
 
-        public void UpdateOrderStatus(int id, UpdateOrderStatusDto statusDto)
+        public void UpdateOrder(int id, UpdateOrderDto orderDto)
         {
             try
             {
-                var order = _context.Orders.Find(id);
-                if (order == null)
+                var order = _context.Orders.FirstOrDefault(o => o.OrderId == id);
+                if (order== null)
                     throw new Exception("Order not found");
 
-                order.Status = statusDto.Status;
+                order.OrderId = orderDto.OrderId;
+                order.OrderAmount = orderDto.OrderAmount;
+                order.TotalDiscount = orderDto.TotalDiscount;
+                order.DiscountApplied = orderDto.DiscountApplied;
+                order.OrderDate = orderDto.OrderDate;
+                order.Status = orderDto.Status;
+                order.IsCancelled = orderDto.IsCancelled;
+                order.ClaimCode = orderDto.ClaimCode;
+                order.ValidTill = orderDto.ValidTill;
+
+                _context.Orders.Update(order);
                 _context.SaveChanges();
             }
             catch (Exception ex)
             {
-                throw new Exception("Error updating order status: " + ex.Message);
+                throw new Exception("Error updating order: " + ex.Message);
             }
         }
+
+        public void UpdateOrder(Guid id, UpdateOrderDto orderDto)
+        {
+            throw new NotImplementedException();
+        }
     }
+
 }

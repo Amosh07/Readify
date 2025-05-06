@@ -11,6 +11,16 @@ namespace Readify.Data
         {
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Category> Categorys { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<Whitelist> Whitelists { get; set; }
+        public DbSet<PurchaseHistory> PurchaseHistories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

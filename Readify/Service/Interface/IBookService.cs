@@ -1,6 +1,4 @@
 ﻿using Readify.DTOs.Book;
-using System;
-using System.Collections.Generic;
 
 namespace Readify.Service.Interface
 {

@@ -1,5 +1,6 @@
 ﻿using Readify.Data;
 using Readify.DTOs.Author;
+using Readify.DTOs.User;
 using Readify.Entities;
 using Readify.Service.Interface;
 
@@ -49,7 +50,7 @@ namespace Readify.Service
             }
         }
 
-        public List<GetAuthorDto> GetAllAuthors()
+        public List<GetAllAuthor> GetAllAuthors()
         {
             try
             {
@@ -57,7 +58,7 @@ namespace Readify.Service
                 if (authors == null || !authors.Any())
                     throw new Exception("No authors found");
 
-                return authors.Select(a => new GetAuthorDto
+                return authors.Select(a => new GetAllAuthor
                 {
                     AuthorId = a.AuthorId,
                     Name = a.Name
@@ -69,7 +70,7 @@ namespace Readify.Service
             }
         }
 
-        public GetAuthorDto GetAuthorById(int id)
+        public GetAllAuthor GetAuthorById(int id)
         {
             try
             {
@@ -77,7 +78,7 @@ namespace Readify.Service
                 if (author == null)
                     throw new Exception("Author not found");
 
-                return new GetAuthorDto
+                return new GetAllAuthor
                 {
                     AuthorId = author.AuthorId,
                     Name = author.Name
@@ -87,6 +88,11 @@ namespace Readify.Service
             {
                 throw new Exception("Error fetching author: " + ex.Message);
             }
+        }
+
+        public GetAllAuthor GetById(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public void UpdateAuthor(int id, UpdateAuthorDto authorDto)
@@ -105,6 +111,11 @@ namespace Readify.Service
             {
                 throw new Exception("Error updating author: " + ex.Message);
             }
+        }
+
+        List<GetAllAuthor> IAuthorService.GetAllAuthors()
+        {
+            throw new NotImplementedException();
         }
     }
 }

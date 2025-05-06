@@ -9,94 +9,29 @@ namespace Readify.Service
     {
         private readonly ApplicationDbContext _context;
 
-        public CartItemService(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
         public void AddCartItem(InsertCartItemDto cartItemDto)
         {
-            try
-            {
-                var cartItem = new CartItem
-                {
-                    UserId = cartItemDto.UserId,
-                    BookId = cartItemDto.BookId,
-                    Qty = cartItemDto.Qty,
-                    CreatedDate = DateTime.UtcNow
-                };
-
-                _context.CartItems.Add(cartItem);
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error adding cart item: " + ex.Message);
-            }
+            throw new NotImplementedException();
         }
 
-        public void DeleteCartItem(int userId, int bookId)
+        public void DeleteCartItem(int id)
         {
-            try
-            {
-                var cartItem = _context.CartItems
-                    .FirstOrDefault(ci => ci.UserId == userId && ci.BookId == bookId);
-
-                if (cartItem == null)
-                    throw new Exception("Cart item not found");
-
-                _context.CartItems.Remove(cartItem);
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error deleting cart item: " + ex.Message);
-            }
+            throw new NotImplementedException();
         }
 
-        public List<GetCartItemDto> GetCartItemsByUser(int userId)
+        public List<GetAllCartItem> GetAllCartItems()
         {
-            try
-            {
-                var cartItems = _context.CartItems
-                    .Where(ci => ci.UserId == userId)
-                    .ToList();
-
-                if (!cartItems.Any())
-                    throw new Exception("No cart items found for this user");
-
-                return cartItems.Select(ci => new GetCartItemDto
-                {
-                    UserId = ci.UserId,
-                    BookId = ci.BookId,
-                    Qty = ci.Qty,
-                    CreatedDate = ci.CreatedDate
-                }).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error fetching cart items: " + ex.Message);
-            }
+            throw new NotImplementedException();
         }
 
-        public void UpdateCartItemQty(int userId, int bookId, UpdateCartItemQtyDto updateDto)
+        public GetAllCartItem GetById(int id)
         {
-            try
-            {
-                var cartItem = _context.CartItems
-                    .FirstOrDefault(ci => ci.UserId == userId && ci.BookId == bookId);
+            throw new NotImplementedException();
+        }
 
-                if (cartItem == null)
-                    throw new Exception("Cart item not found");
-
-                cartItem.Qty = updateDto.Qty;
-                _context.CartItems.Update(cartItem);
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error updating cart item quantity: " + ex.Message);
-            }
+        public void UpdateCartItem(int id, UpdateCartItemDto cartItemDto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Readify.Constant;
 
+
 namespace Readify.DTOs.User
 {
     public class GetAllUser

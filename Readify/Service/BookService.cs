@@ -32,7 +32,7 @@ namespace Readify.Service
                     Stock = bookDto.Stock,
                     PublishDate = bookDto.PublishDate,
                     CreatedDate = DateTime.UtcNow,
-                    TotalSold = 0 // Initialize with 0
+                    TotalSold = 0 
                 };
 
                 _context.Books.Add(book);
@@ -61,7 +61,7 @@ namespace Readify.Service
             }
         }
 
-        public List<GetBookDto> GetAllBooks()
+        public List<GetAllBook> GetAllBooks()
         {
             try
             {
@@ -69,10 +69,10 @@ namespace Readify.Service
                 if (books == null || !books.Any())
                     throw new Exception("No books found");
 
-                var result = new List<GetBookDto>();
+                var result = new List<GetAllBook>();
                 foreach (var b in books)
                 {
-                    result.Add(new GetBookDto
+                    result.Add(new GetAllBook
                     {
                         BookId = b.BookId,
                         ISBN = b.ISBN,
@@ -98,7 +98,8 @@ namespace Readify.Service
             }
         }
 
-        public GetBookDto GetBookById(int id)
+
+        public GetAllBook GetById(int id)
         {
             try
             {
@@ -106,7 +107,7 @@ namespace Readify.Service
                 if (book == null)
                     throw new Exception("Book not found");
 
-                return new GetBookDto
+                return new GetAllBook
                 {
                     BookId = book.BookId,
                     ISBN = book.ISBN,
@@ -128,11 +129,6 @@ namespace Readify.Service
             {
                 throw new Exception("Error fetching book: " + ex.Message);
             }
-        }
-
-        public GetAllBook GetById(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public void UpdateBook(int id, UpdateBookDto bookDto)

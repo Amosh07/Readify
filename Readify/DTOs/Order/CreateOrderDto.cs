@@ -1,6 +1,9 @@
-﻿namespace Readify.DTOs.Order
+﻿using Readify.Entities;
+
+
+namespace Readify.DTOs.Order
 {
-    public class GetAllOrder
+    public class CreateOrderDto
     {
 
         public int OrderId { get; set; }
