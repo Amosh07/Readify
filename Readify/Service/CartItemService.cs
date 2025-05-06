@@ -2,6 +2,7 @@
 using Readify.DTOs.CartItem;
 using Readify.Entities;
 using Readify.Service.Interface;
+using System.Net;
 
 namespace Readify.Service
 {
@@ -17,6 +18,8 @@ namespace Readify.Service
                 {
                     Qty = cartItemDto.Qty,
                     CreatedDate = cartItemDto.CreatedDate,
+                    BookId = cartItemDto.BookId,
+                    PersonId = cartItemDto.PersonId,
                 };
 
                 _context.CartItems.Add(cartitem);
@@ -24,23 +27,97 @@ namespace Readify.Service
             }
             catch (Exception ex)
             {
-                throw new Exception("Error adding book: " + ex.Message);
+                throw new Exception("Error adding cart item: " + ex.Message);
             }
         }
         public void DeleteCartItem(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var cartitem = _context.CartItems.FirstOrDefault(b => b.Id == id);
+                if (cartitem == null)
+                    throw new Exception("Cart items not found");
+
+                _context.CartItems.Remove(cartitem);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deleting cart item: " + ex.Message);
+            }
         }
 
         public List<GetAllCartItem> GetAllCartItems()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var cartitems = _context.CartItems.ToList();
+                if (cartitems == null || !cartitems.Any())
+                    throw new Exception("No cart items found");
+
+                var result = new List<GetAllCartItem>();
+                foreach (var b in cartitems)
+                {
+                    result.Add(new GetAllCartItem
+                    {
+                        Id = b.Id,
+                        Qty = b.Qty,
+                        CreatedDate = b.CreatedDate,
+                        PersonId = b.PersonId,
+                        BookId = b.BookId,
+                    });
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error fetching cart items: " + ex.Message);
+            }
         }
         public GetAllCartItem GetById(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var cartitem = _context.CartItems.FirstOrDefault(b => b.Id == id);
+                if (cartitem == null)
+                    throw new Exception("Cart items not found");
+
+                return new GetAllCartItem
+                {
+                    Id = cartitem.Id,
+                    Qty = cartitem.Qty,
+                    CreatedDate = cartitem.CreatedDate,
+                    BookId = cartitem.BookId,
+                    PersonId= cartitem.PersonId,
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error fetching cart item: " + ex.Message);
+            }
         }
         public void UpdateCartItem(Guid id, UpdateCartItemDto cartItemDto)
+        {
+            try
+            {
+                var cartitem = _context.CartItems.FirstOrDefault(b => b.Id == id);
+                if (cartitem == null)
+                    throw new Exception("Cart items not found");
+
+                cartitem.Qty = cartItemDto.Qty;
+                cartitem.CreatedDate = cartItemDto.CreatedDate;
+                cartitem.BookId = cartItemDto.BookId;
+                cartitem.PersonId = cartItemDto.PersonId;
+
+                _context.CartItems.Update(cartitem);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating cart item: " + ex.Message);
+            }
+        }
+        List<GetAllCartItem> ICartItemService.GetAllCartItems()
         {
             throw new NotImplementedException();
         }

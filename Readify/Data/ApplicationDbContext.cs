@@ -16,6 +16,7 @@ namespace Readify.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Category> Categorys { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
