@@ -11,10 +11,23 @@ namespace Readify.Service
 
         public void AddCartItem(InsertCartItemDto cartItemDto)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var cartitem = new CartItem
+                {
+                    Qty = cartItemDto.Qty,
+                    CreatedDate = cartItemDto.CreatedDate,
+                };
 
-        public void DeleteCartItem(int id)
+                _context.CartItems.Add(cartitem);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error adding book: " + ex.Message);
+            }
+        }
+        public void DeleteCartItem(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -23,13 +36,11 @@ namespace Readify.Service
         {
             throw new NotImplementedException();
         }
-
-        public GetAllCartItem GetById(int id)
+        public GetAllCartItem GetById(Guid id)
         {
             throw new NotImplementedException();
         }
-
-        public void UpdateCartItem(int id, UpdateCartItemDto cartItemDto)
+        public void UpdateCartItem(Guid id, UpdateCartItemDto cartItemDto)
         {
             throw new NotImplementedException();
         }

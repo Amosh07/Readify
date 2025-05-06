@@ -14,7 +14,7 @@ namespace Readify.Service
             throw new NotImplementedException();
         }
 
-        public void DeleteCategory(int id)
+        public void DeleteCategory(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -24,12 +24,12 @@ namespace Readify.Service
             throw new NotImplementedException();
         }
 
-        public GetAllCategory GetById(int id)
+        public GetAllCategory GetById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateCategory(int id, UpdateCategoryDto categoryDto)
+        public void UpdateCategory(Guid id, UpdateCategoryDto categoryDto)
         {
             throw new NotImplementedException();
         }

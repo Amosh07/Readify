@@ -2,5 +2,6 @@
 {
     public class InsertCategoryDto
     {
+        public string Name { get; set; }
     }
 }

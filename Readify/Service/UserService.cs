@@ -67,6 +67,7 @@ namespace Readify.Service
                 {
                     result.Add(new GetAllUser
                     {
+                        Id = u.Id,
                         FirstName = u.FirstName,
                         LastName = u.LastName,
                         Gender = u.Gender,
@@ -94,6 +95,7 @@ namespace Readify.Service
                 var user = _context.Users.FirstOrDefault(u => u.Id == id);
                 if (user == null)
                     throw new Exception("User not found");
+                user.Id = userDto.Id;
                 user.FirstName = userDto.FirstName;
                 user.LastName = userDto.LastName;
                 user.Gender = userDto.Gender;

@@ -1,12 +1,16 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Readify.Entities
 {
     public class Order
     {
-        public int OrderId { get; set; }
+        [Key]
+        public Guid Id { get; set; } = Guid.NewGuid();
+
         public decimal OrderAmount { get; set; }
+
         public decimal TotalDiscount { get; set; }
         public bool DiscountApplied { get; set; }
         public DateTime OrderDate { get; set; }
@@ -16,7 +20,8 @@ namespace Readify.Entities
         public DateTime ValidTill { get; set; }
 
         [ForeignKey(nameof(User))]
-        public Guid UserId { get; set; }
-        public User User { get; set; }
+        public Guid PersonId { get; set; }
+
+        public virtual User? User { get; set; }
     }
 }

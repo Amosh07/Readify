@@ -3,25 +3,24 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Readify.Entities
 {
-    public class OrderItem
+    public class Review 
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public int Qty { get; set; }
-
-        public decimal Price { get; set; }
-
-        public DateTime CreatedDate { get; set; }
-
-        [ForeignKey(nameof(Order))]
-        public Guid OrderId { get; set; }
+        [ForeignKey(nameof(User))]
+        public Guid PersonId { get; set; }
 
         [ForeignKey(nameof(Book))]
         public Guid BookId { get; set; }
 
-        public virtual Order? Order { get; set; }
+        public virtual User? User { get; set; }
 
         public virtual Book? Book { get; set; }
+
+        public int rating {  get; set; }
+
+        public DateTime ReviewDate { get; set; }
+
     }
 }

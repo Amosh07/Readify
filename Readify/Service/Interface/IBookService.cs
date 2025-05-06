@@ -8,10 +8,10 @@ namespace Readify.Service.Interface
 
         List<GetAllBook> GetAllBooks();
 
-        GetAllBook GetById(int id);
+        GetAllBook GetById(Guid id);
 
-        void DeleteBook(int id);
+        void DeleteBook(Guid id);
 
-        void UpdateBook(int id, UpdateBookDto bookDto);
+        void UpdateBook(Guid id, UpdateBookDto bookDto);
     }
 }

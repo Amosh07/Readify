@@ -44,11 +44,11 @@ namespace Readify.Service
             }
         }
 
-        public void DeleteBook(int id)
+        public void DeleteBook(Guid id)
         {
             try
             {
-                var book = _context.Books.FirstOrDefault(b => b.BookId == id);
+                var book = _context.Books.FirstOrDefault(b => b.Id == id);
                 if (book == null)
                     throw new Exception("Book not found");
 
@@ -74,7 +74,7 @@ namespace Readify.Service
                 {
                     result.Add(new GetAllBook
                     {
-                        BookId = b.BookId,
+                        Id = b.Id,
                         ISBN = b.ISBN,
                         Title = b.Title,
                         AuthorId = b.AuthorId,
@@ -99,17 +99,17 @@ namespace Readify.Service
         }
 
 
-        public GetAllBook GetById(int id)
+        public GetAllBook GetById(Guid id)
         {
             try
             {
-                var book = _context.Books.FirstOrDefault(b => b.BookId == id);
+                var book = _context.Books.FirstOrDefault(b => b.Id == id);
                 if (book == null)
                     throw new Exception("Book not found");
 
                 return new GetAllBook
                 {
-                    BookId = book.BookId,
+                    Id = book.Id,
                     ISBN = book.ISBN,
                     Title = book.Title,
                     AuthorId = book.AuthorId,
@@ -131,11 +131,11 @@ namespace Readify.Service
             }
         }
 
-        public void UpdateBook(int id, UpdateBookDto bookDto)
+        public void UpdateBook(Guid id, UpdateBookDto bookDto)
         {
             try
             {
-                var book = _context.Books.FirstOrDefault(b => b.BookId == id);
+                var book = _context.Books.FirstOrDefault(b => b.Id == id);
                 if (book == null)
                     throw new Exception("Book not found");
 
@@ -159,7 +159,6 @@ namespace Readify.Service
                 throw new Exception("Error updating book: " + ex.Message);
             }
         }
-
         List<GetAllBook> IBookService.GetAllBooks()
         {
             throw new NotImplementedException();

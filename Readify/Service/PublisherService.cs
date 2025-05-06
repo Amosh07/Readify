@@ -10,7 +10,7 @@ namespace Readify.Service
             throw new NotImplementedException();
         }
 
-        public void DeletePublisher(int id)
+        public void DeletePublisher(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -20,12 +20,12 @@ namespace Readify.Service
             throw new NotImplementedException();
         }
 
-        public GetAllPublisher GetById(int id)
+        public GetAllPublisher GetById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdatePublisher(int id, UpdatePublisherDto publisherDto)
+        public void UpdatePublisher(Guid id, UpdatePublisherDto publisherDto)
         {
             throw new NotImplementedException();
         }
