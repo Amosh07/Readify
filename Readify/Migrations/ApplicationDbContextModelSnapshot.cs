@@ -266,7 +266,7 @@ namespace Readify.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("Readify.Entities.Book", b =>
@@ -339,7 +339,7 @@ namespace Readify.Migrations
 
                     b.HasIndex("WhitelistId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("Readify.Entities.CartItem", b =>
@@ -366,7 +366,7 @@ namespace Readify.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("CartItems");
+                    b.ToTable("CartItems", (string)null);
                 });
 
             modelBuilder.Entity("Readify.Entities.Category", b =>
@@ -385,7 +385,7 @@ namespace Readify.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorys");
+                    b.ToTable("Categorys", (string)null);
                 });
 
             modelBuilder.Entity("Readify.Entities.Language", b =>
@@ -400,7 +400,7 @@ namespace Readify.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages");
+                    b.ToTable("Languages", (string)null);
                 });
 
             modelBuilder.Entity("Readify.Entities.Order", b =>
@@ -442,7 +442,7 @@ namespace Readify.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Readify.Entities.OrderItem", b =>
@@ -472,7 +472,7 @@ namespace Readify.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("Readify.Entities.Publisher", b =>
@@ -487,7 +487,7 @@ namespace Readify.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publishers");
+                    b.ToTable("Publishers", (string)null);
                 });
 
             modelBuilder.Entity("Readify.Entities.PurchaseHistory", b =>
@@ -523,7 +523,7 @@ namespace Readify.Migrations
 
                     b.HasIndex("RatingId");
 
-                    b.ToTable("PurchaseHistories");
+                    b.ToTable("PurchaseHistories", (string)null);
                 });
 
             modelBuilder.Entity("Readify.Entities.Review", b =>
@@ -550,7 +550,7 @@ namespace Readify.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Review");
+                    b.ToTable("Review", (string)null);
                 });
 
             modelBuilder.Entity("Readify.Entities.User", b =>
@@ -582,7 +582,7 @@ namespace Readify.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("Readify.Entities.Whitelist", b =>
@@ -606,7 +606,7 @@ namespace Readify.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Whitelists");
+                    b.ToTable("Whitelists", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
