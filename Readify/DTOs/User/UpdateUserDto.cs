@@ -4,6 +4,7 @@ namespace Readify.DTOs.User
 {
     public class UpdateUserDto
     {
+        public Guid Id { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

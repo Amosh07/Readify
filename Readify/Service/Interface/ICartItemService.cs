@@ -10,10 +10,10 @@ namespace Readify.Service.Interface
 
         List<GetAllCartItem> GetAllCartItems();
 
-        GetAllCartItem GetById(int id);
+        GetAllCartItem GetById(Guid id);
 
-        void DeleteCartItem(int id);
+        void DeleteCartItem(Guid id);
 
-        void UpdateCartItem(int id, UpdateCartItemDto cartItemDto);
+        void UpdateCartItem(Guid id, UpdateCartItemDto cartItemDto);
     }
 }

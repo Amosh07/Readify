@@ -9,10 +9,10 @@ namespace Readify.Service.Interface
 
         List<GetAllLanguage> GetAllLanguages();
 
-        GetAllLanguage GetById(int id);
+        GetAllLanguage GetById(Guid id);
 
-        void DeleteLanguage(int id);
+        void DeleteLanguage(Guid id);
 
-        void UpdateLanguage(int id, UpdateLanguageDto languageDto);
+        void UpdateLanguage(Guid id, UpdateLanguageDto languageDto);
     }
 }

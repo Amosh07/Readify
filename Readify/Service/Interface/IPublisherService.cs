@@ -9,10 +9,10 @@ namespace Readify.Service.Interface
 
         List<GetAllPublisher> GetAllPublishers();
 
-        GetAllPublisher GetById(int id);
+        GetAllPublisher GetById(Guid id);
 
-        void DeletePublisher(int id);
+        void DeletePublisher(Guid id);
 
-        void UpdatePublisher(int id, UpdatePublisherDto publisherDto);
+        void UpdatePublisher(Guid id, UpdatePublisherDto publisherDto);
     }
 }

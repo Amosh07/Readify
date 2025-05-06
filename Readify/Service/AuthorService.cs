@@ -1,6 +1,5 @@
 ﻿using Readify.Data;
 using Readify.DTOs.Author;
-using Readify.DTOs.User;
 using Readify.Entities;
 using Readify.Service.Interface;
 
@@ -33,11 +32,11 @@ namespace Readify.Service
             }
         }
 
-        public void DeleteAuthor(int id)
+        public void DeleteAuthor(Guid id)
         {
             try
             {
-                var author = _context.Authors.FirstOrDefault(a => a.AuthorId == id);
+                var author = _context.Authors.FirstOrDefault(a => a.Id == id);
                 if (author == null)
                     throw new Exception("Author not found");
 
@@ -60,7 +59,7 @@ namespace Readify.Service
 
                 return authors.Select(a => new GetAllAuthor
                 {
-                    AuthorId = a.AuthorId,
+                    Id = a.Id,
                     Name = a.Name
                 }).ToList();
             }
@@ -70,17 +69,17 @@ namespace Readify.Service
             }
         }
 
-        public GetAllAuthor GetAuthorById(int id)
+        public GetAllAuthor GetById(Guid id)
         {
             try
             {
-                var author = _context.Authors.FirstOrDefault(a => a.AuthorId == id);
+                var author = _context.Authors.FirstOrDefault(a => a.Id == id);
                 if (author == null)
                     throw new Exception("Author not found");
 
                 return new GetAllAuthor
                 {
-                    AuthorId = author.AuthorId,
+                    Id = author.Id,
                     Name = author.Name
                 };
             }
@@ -90,16 +89,11 @@ namespace Readify.Service
             }
         }
 
-        public GetAllAuthor GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateAuthor(int id, UpdateAuthorDto authorDto)
+        public void UpdateAuthor(Guid id, UpdateAuthorDto authorDto)
         {
             try
             {
-                var author = _context.Authors.FirstOrDefault(a => a.AuthorId == id);
+                var author = _context.Authors.FirstOrDefault(a => a.Id == id);
                 if (author == null)
                     throw new Exception("Author not found");
 
@@ -115,7 +109,28 @@ namespace Readify.Service
 
         List<GetAllAuthor> IAuthorService.GetAllAuthors()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var author
+                    = _context.Authors.Where(a => a.isActive).ToList();
+                if (author == null)
+                    throw new Exception("No active author found");
+
+                var result = new List<GetAllAuthor>();
+                foreach (var a in author)
+                {
+                    result.Add(new GetAllAuthor
+                    {
+                        Id=a.Id,
+                        Name = a.Name,
+                    });
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error fetching users: " + ex.Message);
+            }
         }
     }
 }

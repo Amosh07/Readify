@@ -9,10 +9,10 @@ namespace Readify.Service.Interface
 
         List<GetAllOrderItem> GetAllOrderItems();
 
-        GetAllOrderItem GetById(int id);
+        GetAllOrderItem GetById(Guid id);
 
-        void DeleteOrderItem(int id);
+        void DeleteOrderItem(Guid id);
 
-        void UpdateOrderItem(int id, UpdateOrderItemDto orderItemDto);
+        void UpdateOrderItem(Guid id, UpdateOrderItemDto orderItemDto);
     }
 }

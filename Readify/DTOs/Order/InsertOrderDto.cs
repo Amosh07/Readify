@@ -2,8 +2,6 @@
 {
     public class InsertOrderDto
     {
-
-        public int OrderId { get; set; }
         public decimal OrderAmount { get; set; }
         public decimal TotalDiscount { get; set; }
         public bool DiscountApplied { get; set; }

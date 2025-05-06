@@ -1,5 +1,4 @@
 ﻿using Readify.Data;
-using Readify.DTOs.Book;
 using Readify.DTOs.Order;
 using Readify.Entities;
 using Readify.Service.Interface;
@@ -22,7 +21,6 @@ namespace Readify.Service
             {
                 var order = new Order
                 {
-                    OrderId = orderDto.OrderId,
                     OrderAmount = orderDto.OrderAmount,
                     TotalDiscount = orderDto.TotalDiscount,
                     DiscountApplied = orderDto.DiscountApplied,
@@ -48,11 +46,11 @@ namespace Readify.Service
             throw new NotImplementedException();
         }
 
-        public void DeleteOrder(int id)
+        public void DeleteOrder(Guid id)
         {
             try
             {
-                var order = _context.Orders.FirstOrDefault(o => o.OrderId == id);
+                var order = _context.Orders.FirstOrDefault(o => o.Id == id);
                 if (order == null)
                     throw new Exception("Book not found");
 
@@ -78,7 +76,7 @@ namespace Readify.Service
                 {
                     result.Add(new GetAllOrder
                     {
-                        OrderId = o.OrderId,
+                        Id = o.Id,
                         OrderAmount = o.OrderAmount,
                         TotalDiscount = o.TotalDiscount,
                         DiscountApplied = o.DiscountApplied,
@@ -97,17 +95,17 @@ namespace Readify.Service
             }
         }
 
-        public GetAllOrder GetById(int id)
+        public GetAllOrder GetById(Guid id)
         {
             try
             {
-                var order = _context.Orders.FirstOrDefault(o => o.OrderId == id);
+                var order = _context.Orders.FirstOrDefault(o => o.Id == id);
                 if (order == null)
                     throw new Exception("Order not found");
 
                 return new GetAllOrder
                 {
-                    OrderId = order.OrderId,
+                    Id = order.Id,
                     OrderAmount = order.OrderAmount,
                     TotalDiscount = order.TotalDiscount,
                     DiscountApplied = order.DiscountApplied,
@@ -124,20 +122,15 @@ namespace Readify.Service
             }
         }
 
-        public GetAllOrder GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateOrder(int id, UpdateOrderDto orderDto)
+        public void UpdateOrder(Guid id, UpdateOrderDto orderDto)
         {
             try
             {
-                var order = _context.Orders.FirstOrDefault(o => o.OrderId == id);
+                var order = _context.Orders.FirstOrDefault(o => o.Id == id);
                 if (order== null)
                     throw new Exception("Order not found");
 
-                order.OrderId = orderDto.OrderId;
+                order.Id = orderDto.Id;
                 order.OrderAmount = orderDto.OrderAmount;
                 order.TotalDiscount = orderDto.TotalDiscount;
                 order.DiscountApplied = orderDto.DiscountApplied;
@@ -154,11 +147,6 @@ namespace Readify.Service
             {
                 throw new Exception("Error updating order: " + ex.Message);
             }
-        }
-
-        public void UpdateOrder(Guid id, UpdateOrderDto orderDto)
-        {
-            throw new NotImplementedException();
         }
     }
 

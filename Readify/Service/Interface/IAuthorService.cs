@@ -1,6 +1,4 @@
 ﻿using Readify.DTOs.Author;
-using System;
-using System.Collections.Generic;
 
 namespace Readify.Service.Interface
 {
@@ -10,10 +8,10 @@ namespace Readify.Service.Interface
 
         List<GetAllAuthor> GetAllAuthors();
 
-        GetAllAuthor GetById(int id);
+        GetAllAuthor GetById(Guid id);
 
-        void DeleteAuthor(int id);
+        void DeleteAuthor(Guid id);
 
-        void UpdateAuthor(int id, UpdateAuthorDto authorDto);
+        void UpdateAuthor(Guid id, UpdateAuthorDto authorDto);
     }
 }

@@ -9,10 +9,10 @@ namespace Readify.Service.Interface
 
         List<GetAllCategory> GetAllCategories();
 
-        GetAllCategory GetById(int id);
+        GetAllCategory GetById(Guid id);
 
-        void DeleteCategory(int id);
+        void DeleteCategory(Guid id);
 
-        void UpdateCategory(int id, UpdateCategoryDto categoryDto);
+        void UpdateCategory(Guid id, UpdateCategoryDto categoryDto);
     }
 }

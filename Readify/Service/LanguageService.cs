@@ -10,7 +10,7 @@ namespace Readify.Service
             throw new NotImplementedException();
         }
 
-        public void DeleteLanguage(int id)
+        public void DeleteLanguage(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -20,12 +20,12 @@ namespace Readify.Service
             throw new NotImplementedException();
         }
 
-        public GetAllLanguage GetById(int id)
+        public GetAllLanguage GetById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateLanguage(int id, UpdateLanguageDto languageDto)
+        public void UpdateLanguage(Guid id, UpdateLanguageDto languageDto)
         {
             throw new NotImplementedException();
         }

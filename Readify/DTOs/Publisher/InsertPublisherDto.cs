@@ -2,5 +2,6 @@
 {
     public class InsertPublisherDto
     {
+        public string Name { get; set; }
     }
 }
