@@ -10,6 +10,11 @@ namespace Readify.Service
     {
         private readonly ApplicationDbContext _context;
 
+        public CategoryService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public void AddCategory(InsertCategoryDto categoryDto)
         {
             try
