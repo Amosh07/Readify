@@ -43,7 +43,26 @@ namespace Readify.Service
 
         public void CreateOrder(CreateOrderDto orderDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var order = new Order
+                {
+                    OrderAmount = orderDto.OrderAmount,
+                    TotalDiscount = orderDto.TotalDiscount,
+                    DiscountApplied = orderDto.DiscountApplied,
+                    OrderDate = orderDto.OrderDate,
+                    Status = orderDto.Status,
+                    IsCancelled = orderDto.IsCancelled,
+                    ClaimCode = orderDto.ClaimCode,
+                    ValidTill = orderDto.ValidTill,
+                };
+                _context.Orders.Add(order);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error creating order: " + ex.Message);
+            }
         }
 
         public void DeleteOrder(Guid id)
@@ -127,7 +146,7 @@ namespace Readify.Service
             try
             {
                 var order = _context.Orders.FirstOrDefault(o => o.Id == id);
-                if (order== null)
+                if (order == null)
                     throw new Exception("Order not found");
 
                 order.Id = orderDto.Id;
