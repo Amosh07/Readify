@@ -10,6 +10,10 @@ namespace Readify.Service
     {
         private readonly ApplicationDbContext _context;
 
+        public CartItemService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public void AddCartItem(InsertCartItemDto cartItemDto)
         {
             try
