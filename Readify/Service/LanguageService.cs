@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Readify.Data;
+﻿using Readify.Data;
 using Readify.DTOs.Language;
 using Readify.Entities;
 using Readify.Service.Interface;

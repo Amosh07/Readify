@@ -20,7 +20,7 @@ namespace Readify.Service
             throw new NotImplementedException();
         }
 
-        public void RemoveFromWhiteList(Guid id)
+        public void DeleteWhiteList(Guid id)
         {
             throw new NotImplementedException();
         }

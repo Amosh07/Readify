@@ -2,7 +2,6 @@
 using Readify.DTOs.Discount;
 using Readify.Entities;
 using Readify.Service.Interface;
-using System.Net;
 
 namespace Readify.Service
 {
