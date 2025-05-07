@@ -1,6 +1,4 @@
 ﻿using Readify.DTOs.PurchaseHistory;
-using System;
-using System.Collections.Generic;
 
 namespace Readify.Service.Interface
 {

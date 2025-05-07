@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Readify.DTOs.Author;
-using Readify.Entities;
 using Readify.Service.Interface;
 
 namespace Readify.Controllers
@@ -49,6 +48,21 @@ namespace Readify.Controllers
             {
                 var result = authorService.GetById(id);
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeleteAuthor(Guid id)
+        {
+            try
+            {
+                authorService.DeleteAuthor(id);
+                return Ok("author deleted successfully");
+
             }
             catch (Exception ex)
             {
