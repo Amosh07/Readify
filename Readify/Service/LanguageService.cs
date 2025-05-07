@@ -8,6 +8,11 @@ namespace Readify.Service
     public class LanguageService : ILanguageService
     {
         private readonly ApplicationDbContext _context;
+
+        public LanguageService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public void AddLanguage(InsertLanguageDto languageDto)
         {
             try

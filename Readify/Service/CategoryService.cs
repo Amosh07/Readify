@@ -6,10 +6,14 @@ using Readify.Service.Interface;
 namespace Readify.Service
 {
     public class CategoryService : ICategoryService
-    
+
     {
         private readonly ApplicationDbContext _context;
 
+        public CategoryService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public void AddCategory(InsertCategoryDto categoryDto)
         {
             try

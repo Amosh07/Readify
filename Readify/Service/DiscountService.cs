@@ -10,6 +10,10 @@ namespace Readify.Service
     {
         private readonly ApplicationDbContext _context;
 
+        public DiscountService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public void AddDiscount(InsertDiscountDto discountDto)
         {
             try

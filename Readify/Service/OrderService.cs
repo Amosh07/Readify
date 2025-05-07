@@ -24,6 +24,7 @@ namespace Readify.Service
                     OrderAmount = orderDto.OrderAmount,
                     TotalDiscount = orderDto.TotalDiscount,
                     DiscountApplied = orderDto.DiscountApplied,
+                    PersonId = orderDto.PersonId,
                     OrderDate = orderDto.OrderDate,
                     Status = orderDto.Status,
                     IsCancelled = orderDto.IsCancelled,
@@ -43,7 +44,27 @@ namespace Readify.Service
 
         public void CreateOrder(CreateOrderDto orderDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var order = new Order
+                {
+                    OrderAmount = orderDto.OrderAmount,
+                    TotalDiscount = orderDto.TotalDiscount,
+                    DiscountApplied = orderDto.DiscountApplied,
+                    PersonId= orderDto.PersonId,
+                    OrderDate = orderDto.OrderDate,
+                    Status = orderDto.Status,
+                    IsCancelled = orderDto.IsCancelled,
+                    ClaimCode = orderDto.ClaimCode,
+                    ValidTill = orderDto.ValidTill,
+                };
+                _context.Orders.Add(order);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error creating order: " + ex.Message);
+            }
         }
 
         public void DeleteOrder(Guid id)
@@ -80,6 +101,7 @@ namespace Readify.Service
                         OrderAmount = o.OrderAmount,
                         TotalDiscount = o.TotalDiscount,
                         DiscountApplied = o.DiscountApplied,
+                        PersonId = o.PersonId,
                         OrderDate = o.OrderDate,
                         Status = o.Status,
                         IsCancelled = o.IsCancelled,
@@ -109,6 +131,7 @@ namespace Readify.Service
                     OrderAmount = order.OrderAmount,
                     TotalDiscount = order.TotalDiscount,
                     DiscountApplied = order.DiscountApplied,
+                    PersonId = order.PersonId,
                     OrderDate = order.OrderDate,
                     Status = order.Status,
                     ClaimCode = order.ClaimCode,
@@ -127,13 +150,14 @@ namespace Readify.Service
             try
             {
                 var order = _context.Orders.FirstOrDefault(o => o.Id == id);
-                if (order== null)
+                if (order == null)
                     throw new Exception("Order not found");
 
                 order.Id = orderDto.Id;
                 order.OrderAmount = orderDto.OrderAmount;
                 order.TotalDiscount = orderDto.TotalDiscount;
                 order.DiscountApplied = orderDto.DiscountApplied;
+                order.PersonId = orderDto.PersonId;
                 order.OrderDate = orderDto.OrderDate;
                 order.Status = orderDto.Status;
                 order.IsCancelled = orderDto.IsCancelled;

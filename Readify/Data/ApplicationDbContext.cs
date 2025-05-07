@@ -58,7 +58,7 @@ namespace Readify.Data
                 ConcurrencyStamp = Guid.NewGuid().ToString("D")
             };
 
-            adminUser.PasswordHash = hasher.HashPassword(adminUser, "sanuhamal");
+            adminUser.PasswordHash = hasher.HashPassword(adminUser, "Sanuhamal@123");
 
             modelBuilder.Entity<IdentityUser>().HasData(adminUser);
 

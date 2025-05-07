@@ -16,6 +16,10 @@
 
         public Guid LanguageId { get; set; }
 
+        public Guid OrderItemId { get; set; }
+
+        public Guid WhiteListId { get; set; }
+
         public string Format { get; set; }
 
         public string Description { get; set; }

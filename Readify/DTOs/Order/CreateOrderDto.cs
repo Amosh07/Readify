@@ -14,5 +14,7 @@ namespace Readify.DTOs.Order
         public bool IsCancelled { get; set; }
         public string ClaimCode { get; set; }
         public DateTime ValidTill { get; set; }
+        public Guid PersonId { get; set; }
+
     }
 }
