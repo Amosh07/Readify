@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Readify.DTOs.CartItem;
-using Readify.Entities;
 using Readify.Service.Interface;
 
 namespace Readify.Controllers
@@ -49,6 +48,21 @@ namespace Readify.Controllers
             {
                 var result = cartitemService.GetById(id);
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeleteCartItemUser(Guid id)
+        {
+            try
+            {
+                cartitemService.DeleteCartItem(id);
+                return Ok("CartItem deleted successfully");
+
             }
             catch (Exception ex)
             {

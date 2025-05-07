@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Readify.DTOs.PurchaseHistory;
-using Readify.Entities;
 using Readify.Service.Interface;
 
 namespace Readify.Controllers
@@ -49,6 +48,21 @@ namespace Readify.Controllers
             {
                 var result = purchasehistoryService.GetById(id);
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeletePurchaseHistory(Guid id)
+        {
+            try
+            {
+                purchasehistoryService.DeletePurchaseHistory(id);
+                return Ok("PurchaseHistory deleted successfully");
+
             }
             catch (Exception ex)
             {

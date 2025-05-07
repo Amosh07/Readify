@@ -51,7 +51,23 @@ namespace Readify.Controllers
                     return BadRequest(ex.Message);
                 }
             }
-            [HttpPut("{id:guid}")]
+
+            [HttpDelete("{id:guid}")]
+            public IActionResult DeleteUser(Guid id)
+            {
+                try
+                {
+                userServices.DeleteUser(id);
+                return Ok("user deleted successfully");
+
+                }
+            catch (Exception ex)
+                {
+                return BadRequest(ex.Message);
+                }
+            }
+
+           [HttpPut("{id:guid}")]
             public IActionResult UpadteUser(Guid id, [FromBody] UpdateUserDto userDto)
             {
                 try

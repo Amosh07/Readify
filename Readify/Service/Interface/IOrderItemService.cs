@@ -1,5 +1,4 @@
 ﻿using Readify.DTOs.OrderItem;
-using System.Collections.Generic;
 
 namespace Readify.Service.Interface
 {

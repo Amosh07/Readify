@@ -1,5 +1,4 @@
 ﻿using Readify.DTOs.Category;
-using System.Collections.Generic;
 
 namespace Readify.Service.Interface
 {

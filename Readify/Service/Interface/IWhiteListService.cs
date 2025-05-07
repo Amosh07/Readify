@@ -10,7 +10,7 @@ namespace Readify.Service.Interface
 
         GetAllWhiteList GetById(Guid id);
 
-        void RemoveFromWhiteList(Guid id);
+        void DeleteWhiteList(Guid id);
 
         void UpdateWhiteList(Guid id, UpdateWhiteListDto whiteListDto);
     }

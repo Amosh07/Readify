@@ -1,5 +1,4 @@
 ﻿using Readify.DTOs.Publisher;
-using System.Collections.Generic;
 
 namespace Readify.Service.Interface
 {

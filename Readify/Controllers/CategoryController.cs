@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Readify.DTOs.Category;
-using Readify.Entities;
 using Readify.Service.Interface;
 
 namespace Readify.Controllers
@@ -49,6 +48,21 @@ namespace Readify.Controllers
             {
                 var result = categoryService.GetById(id);
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeleteCategory(Guid id)
+        {
+            try
+            {
+                categoryService.DeleteCategory(id);
+                return Ok("Category deleted successfully");
+
             }
             catch (Exception ex)
             {

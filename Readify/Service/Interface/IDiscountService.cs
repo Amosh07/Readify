@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Readify.DTOs.Discount;
+﻿using Readify.DTOs.Discount;
 
 namespace Readify.Service.Interface
 {
