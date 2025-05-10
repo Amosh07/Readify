@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Readify.Entities
 {
@@ -12,14 +11,10 @@ namespace Readify.Entities
         public int Qty { get; set; }
         public DateTime CreatedDate { get; set; }
 
-        [ForeignKey(nameof(User))]
-        public Guid PersonId { get; set; }
-
-        [ForeignKey(nameof(Book))]
-        public Guid BookId { get; set; }
+        public Guid PersonId { get; set; } // Foreign key to User
+        public Guid BookId { get; set; }   // Foreign key to Book
 
         public virtual User? User { get; set; }
-
         public virtual Book? Book { get; set; }
     }
 }

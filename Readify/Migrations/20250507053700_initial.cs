@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Readify.Migrations
 {
     /// <inheritdoc />
-    public partial class intial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -328,6 +328,28 @@ namespace Readify.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Discounts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    DiscountPercentage = table.Column<int>(type: "integer", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    isOnSale = table.Column<bool>(type: "boolean", nullable: false),
+                    BookId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Discounts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Discounts_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderItems",
                 columns: table => new
                 {
@@ -445,17 +467,17 @@ namespace Readify.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "585c3e0d-c65a-4fbf-a2c9-35ef81bf8b36", null, "Admin", "ADMIN" });
+                values: new object[] { "85d36c68-7a31-4ddf-b3ac-19fba752ae04", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "267d300d-6457-4f86-a428-68a7a0ba0dc9", 0, "230a33b0-bc72-46d1-90a0-1fda78a39ace", "amoshhamal7@gmail.com", true, false, null, "ADMIN@YOURAPP.COM", "AMOSHHAMAL7@gmail.com", "AQAAAAIAAYagAAAAEOiSdfKlVs0HiDlUxrC3TyKYtoDtiBlnwpUf9hydWMaRvIHJQR7KL4eL7m2cNk+01w==", null, false, "fc9d626e-1370-46e3-bb11-401356a5f5a0", false, "amoshhamal7@gmail.com" });
+                values: new object[] { "4302c0b4-8106-41a7-af18-49e5fa2aef09", 0, "fa2d8f3e-d00d-48e5-8d35-c32945138b3e", "amoshhamal7@gmail.com", true, false, null, "ADMIN@YOURAPP.COM", "AMOSHHAMAL7@gmail.com", "AQAAAAIAAYagAAAAEEd+aabd3O67hb6k2KmrHn9ebUFrRvgX59uG6cilLVVHyowu1rt6XkD32lVnqOMj+g==", null, false, "02f3917d-9e7e-4576-9d80-71d110249fdf", false, "amoshhamal7@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "585c3e0d-c65a-4fbf-a2c9-35ef81bf8b36", "267d300d-6457-4f86-a428-68a7a0ba0dc9" });
+                values: new object[] { "85d36c68-7a31-4ddf-b3ac-19fba752ae04", "4302c0b4-8106-41a7-af18-49e5fa2aef09" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -534,6 +556,11 @@ namespace Readify.Migrations
                 name: "IX_CartItems_PersonId",
                 table: "CartItems",
                 column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Discounts_BookId",
+                table: "Discounts",
+                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_BookId",
@@ -646,6 +673,9 @@ namespace Readify.Migrations
 
             migrationBuilder.DropTable(
                 name: "CartItems");
+
+            migrationBuilder.DropTable(
+                name: "Discounts");
 
             migrationBuilder.DropTable(
                 name: "PurchaseHistories");
