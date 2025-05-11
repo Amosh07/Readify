@@ -112,9 +112,5 @@ namespace Readify.Service
                 throw new Exception("Error updating language: " + ex.Message);
             }
         }
-        List<GetAllLanguage> ILanguageService.GetAllLanguages()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
