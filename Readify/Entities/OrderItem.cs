@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Readify.Entities
 {
@@ -9,19 +9,15 @@ namespace Readify.Entities
         public Guid Id { get; set; } = Guid.NewGuid();
 
         public int Qty { get; set; }
-
         public decimal Price { get; set; }
-
         public DateTime CreatedDate { get; set; }
 
-        [ForeignKey(nameof(Order))]
+        // FKs
         public Guid OrderId { get; set; }
-
-        [ForeignKey(nameof(Book))]
         public Guid BookId { get; set; }
 
+        // Navigation
         public virtual Order? Order { get; set; }
-
         public virtual Book? Book { get; set; }
     }
 }

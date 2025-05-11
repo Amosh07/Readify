@@ -22,7 +22,7 @@ namespace Readify.Service
                 {
                     PersonId = purchaseHistoryDto.UserId,
                     BookId = purchaseHistoryDto.BookId,
-                    Review = purchaseHistoryDto.Review,
+                    ReviewId = purchaseHistoryDto.ReviewId,
                     Comment = purchaseHistoryDto.Comment,
                     PurchaseDate = purchaseHistoryDto.PurchaseDate
                 };
@@ -64,7 +64,7 @@ namespace Readify.Service
                         Id = p.Id,
                         UserId = p.PersonId,
                         BookId = p.BookId,
-                        Review = p.Review,
+                        ReviewId = p.ReviewId,
                         Comment = p.Comment,
                         PurchaseDate = p.PurchaseDate
                     });
@@ -89,7 +89,7 @@ namespace Readify.Service
                     Id = purchaseHistory.Id,
                     UserId = purchaseHistory.PersonId,
                     BookId = purchaseHistory.BookId,
-                    Review = purchaseHistory.Review,
+                    ReviewId = purchaseHistory.ReviewId,
                     Comment = purchaseHistory.Comment,
                     PurchaseDate = purchaseHistory.PurchaseDate
                 };
@@ -107,7 +107,7 @@ namespace Readify.Service
                 var purchaseHistory = _context.PurchaseHistories.FirstOrDefault(p => p.Id == id);
                 if (purchaseHistory == null)
                     throw new Exception("Purchase history not found");
-                purchaseHistory.Review = purchaseHistoryDto.Review;
+                purchaseHistory.ReviewId = purchaseHistoryDto.ReviewId;
                 purchaseHistory.Comment = purchaseHistoryDto.Comment;
                 purchaseHistory.PurchaseDate = purchaseHistoryDto.PurchaseDate;
                 _context.SaveChanges();

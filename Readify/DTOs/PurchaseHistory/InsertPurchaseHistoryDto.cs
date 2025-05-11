@@ -7,7 +7,7 @@
 
         public Guid BookId { get; set; }
 
-        public Guid Review { get; set; }
+        public Guid ReviewId { get; set; }
 
         public string Comment { get; set; }
         public DateTime PurchaseDate { get; set; }
