@@ -225,6 +225,54 @@ namespace Readify.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ISBN = table.Column<string>(type: "text", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Format = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    Stock = table.Column<int>(type: "integer", nullable: false),
+                    TotalSold = table.Column<int>(type: "integer", nullable: false),
+                    PublishDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AuthorId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PublisherId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
+                    LanguageId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Books_Authors_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Authors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Books_Categorys_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categorys",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Books_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Books_Publishers_PublisherId",
+                        column: x => x.PublisherId,
+                        principalTable: "Publishers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -246,56 +294,6 @@ namespace Readify.Migrations
                         name: "FK_Orders_User_PersonId",
                         column: x => x.PersonId,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Books",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ISBN = table.Column<string>(type: "text", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Format = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric", nullable: false),
-                    Stock = table.Column<int>(type: "integer", nullable: false),
-                    TotalSold = table.Column<int>(type: "integer", nullable: false),
-                    PublishDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    AuthorId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PublisherId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
-                    LanguageId = table.Column<Guid>(type: "uuid", nullable: false),
-                    OrderitemsId = table.Column<Guid>(type: "uuid", nullable: false),
-                    WhitelistId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Books", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Books_Authors_AuthorId",
-                        column: x => x.AuthorId,
-                        principalTable: "Authors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Books_Categorys_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categorys",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Books_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Books_Publishers_PublisherId",
-                        column: x => x.PublisherId,
-                        principalTable: "Publishers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -350,41 +348,13 @@ namespace Readify.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderItems",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Qty = table.Column<int>(type: "integer", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uuid", nullable: false),
-                    BookId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrderItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrderItems_Books_BookId",
-                        column: x => x.BookId,
-                        principalTable: "Books",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrderItems_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Review",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     PersonId = table.Column<Guid>(type: "uuid", nullable: false),
                     BookId = table.Column<Guid>(type: "uuid", nullable: false),
-                    rating = table.Column<int>(type: "integer", nullable: false),
+                    Rating = table.Column<int>(type: "integer", nullable: false),
                     ReviewDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -431,14 +401,41 @@ namespace Readify.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrderItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Qty = table.Column<int>(type: "integer", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uuid", nullable: false),
+                    BookId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PurchaseHistories",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     PersonId = table.Column<Guid>(type: "uuid", nullable: false),
                     BookId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Review = table.Column<Guid>(type: "uuid", nullable: false),
-                    RatingId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ReviewId = table.Column<Guid>(type: "uuid", nullable: false),
                     Comment = table.Column<string>(type: "text", nullable: false),
                     PurchaseDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -452,10 +449,11 @@ namespace Readify.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PurchaseHistories_Review_RatingId",
-                        column: x => x.RatingId,
+                        name: "FK_PurchaseHistories_Review_ReviewId",
+                        column: x => x.ReviewId,
                         principalTable: "Review",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PurchaseHistories_User_PersonId",
                         column: x => x.PersonId,
@@ -467,17 +465,17 @@ namespace Readify.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "85d36c68-7a31-4ddf-b3ac-19fba752ae04", null, "Admin", "ADMIN" });
+                values: new object[] { "e6b2eed2-6d1e-4420-8ad1-72e68c01ff39", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "4302c0b4-8106-41a7-af18-49e5fa2aef09", 0, "fa2d8f3e-d00d-48e5-8d35-c32945138b3e", "amoshhamal7@gmail.com", true, false, null, "ADMIN@YOURAPP.COM", "AMOSHHAMAL7@gmail.com", "AQAAAAIAAYagAAAAEEd+aabd3O67hb6k2KmrHn9ebUFrRvgX59uG6cilLVVHyowu1rt6XkD32lVnqOMj+g==", null, false, "02f3917d-9e7e-4576-9d80-71d110249fdf", false, "amoshhamal7@gmail.com" });
+                values: new object[] { "f6ba1e76-7138-41ff-88cc-0fb4eef0673d", 0, "766f321b-e1be-42c2-9c24-6dc833bcad11", "amoshhamal7@gmail.com", true, false, null, "ADMIN@YOURAPP.COM", "AMOSHHAMAL7@gmail.com", "AQAAAAIAAYagAAAAEHyDhlvNoI7Amd0LMDaGB9uRh8hJusc2F5OU8+OmKlbzTNkbvaa+EnuTW1FGM0fU7A==", null, false, "1837ed00-6836-4760-ae12-10c309b35a03", false, "amoshhamal7@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "85d36c68-7a31-4ddf-b3ac-19fba752ae04", "4302c0b4-8106-41a7-af18-49e5fa2aef09" });
+                values: new object[] { "e6b2eed2-6d1e-4420-8ad1-72e68c01ff39", "f6ba1e76-7138-41ff-88cc-0fb4eef0673d" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -532,20 +530,9 @@ namespace Readify.Migrations
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Books_OrderitemsId",
-                table: "Books",
-                column: "OrderitemsId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Books_PublisherId",
                 table: "Books",
                 column: "PublisherId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Books_WhitelistId",
-                table: "Books",
-                column: "WhitelistId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_BookId",
@@ -588,9 +575,9 @@ namespace Readify.Migrations
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PurchaseHistories_RatingId",
+                name: "IX_PurchaseHistories_ReviewId",
                 table: "PurchaseHistories",
-                column: "RatingId");
+                column: "ReviewId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Review_BookId",
@@ -611,51 +598,11 @@ namespace Readify.Migrations
                 name: "IX_Whitelists_PersonId",
                 table: "Whitelists",
                 column: "PersonId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Books_OrderItems_OrderitemsId",
-                table: "Books",
-                column: "OrderitemsId",
-                principalTable: "OrderItems",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Books_Whitelists_WhitelistId",
-                table: "Books",
-                column: "WhitelistId",
-                principalTable: "Whitelists",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Books_Authors_AuthorId",
-                table: "Books");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Books_Categorys_CategoryId",
-                table: "Books");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Books_Languages_LanguageId",
-                table: "Books");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Books_OrderItems_OrderitemsId",
-                table: "Books");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Books_Publishers_PublisherId",
-                table: "Books");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Books_Whitelists_WhitelistId",
-                table: "Books");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -678,7 +625,13 @@ namespace Readify.Migrations
                 name: "Discounts");
 
             migrationBuilder.DropTable(
+                name: "OrderItems");
+
+            migrationBuilder.DropTable(
                 name: "PurchaseHistories");
+
+            migrationBuilder.DropTable(
+                name: "Whitelists");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -687,7 +640,16 @@ namespace Readify.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
                 name: "Review");
+
+            migrationBuilder.DropTable(
+                name: "Books");
+
+            migrationBuilder.DropTable(
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Authors");
@@ -699,22 +661,7 @@ namespace Readify.Migrations
                 name: "Languages");
 
             migrationBuilder.DropTable(
-                name: "OrderItems");
-
-            migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
                 name: "Publishers");
-
-            migrationBuilder.DropTable(
-                name: "Whitelists");
-
-            migrationBuilder.DropTable(
-                name: "Books");
-
-            migrationBuilder.DropTable(
-                name: "User");
         }
     }
 }
