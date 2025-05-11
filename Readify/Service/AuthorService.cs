@@ -53,15 +53,23 @@ namespace Readify.Service
         {
             try
             {
-                var authors = _context.Authors.ToList();
-                if (authors == null || !authors.Any())
-                    throw new Exception("No authors found");
+                var author
+                    = _context.Authors.Where(a => a.isActive).ToList();
+                if (author == null)
+                    throw new Exception("No active author found");
 
-                return authors.Select(a => new GetAllAuthor
+                var result = new List<GetAllAuthor>();
+                foreach (var a in author)
                 {
-                    Id = a.Id,
-                    Name = a.Name
-                }).ToList();
+                    result.Add(new GetAllAuthor
+                    {
+                        Id = a.Id,
+                        Name = a.Name,
+                        isActive = a.isActive
+
+                    });
+                }
+                return result;
             }
             catch (Exception ex)
             {
@@ -71,22 +79,19 @@ namespace Readify.Service
 
         public GetAllAuthor GetById(Guid id)
         {
-            try
-            {
-                var author = _context.Authors.FirstOrDefault(a => a.Id == id);
-                if (author == null)
-                    throw new Exception("Author not found");
+            var author = _context.Authors.FirstOrDefault(u => u.Id == id);
 
-                return new GetAllAuthor
-                {
-                    Id = author.Id,
-                    Name = author.Name
-                };
-            }
-            catch (Exception ex)
+            if (author == null)
+                throw new Exception("No active users found");
+
+            var result = new GetAllAuthor()
             {
-                throw new Exception("Error fetching author: " + ex.Message);
-            }
+                Id = author.Id,
+                Name = author.Name,
+                isActive = author.isActive
+            };
+
+            return result;
         }
 
         public void UpdateAuthor(Guid id, UpdateAuthorDto authorDto)
@@ -104,32 +109,6 @@ namespace Readify.Service
             catch (Exception ex)
             {
                 throw new Exception("Error updating author: " + ex.Message);
-            }
-        }
-
-        List<GetAllAuthor> IAuthorService.GetAllAuthors()
-        {
-            try
-            {
-                var author
-                    = _context.Authors.Where(a => a.isActive).ToList();
-                if (author == null)
-                    throw new Exception("No active author found");
-
-                var result = new List<GetAllAuthor>();
-                foreach (var a in author)
-                {
-                    result.Add(new GetAllAuthor
-                    {
-                        Id=a.Id,
-                        Name = a.Name,
-                    });
-                }
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error fetching users: " + ex.Message);
             }
         }
     }

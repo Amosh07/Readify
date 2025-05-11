@@ -85,7 +85,21 @@ namespace Readify.Service
 
         public GetAllUser GetById(Guid id)
         {
-            throw new NotImplementedException();
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+
+            if (user == null)
+                throw new Exception("No active users found");
+
+            var result = new GetAllUser()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Gender = user.Gender,
+                ImageUrl = user.ImageUrl,
+                RegisteredDate = user.RegisteredDate
+            };
+
+            return result;
         }
 
         public void UpdateUser(Guid id, UpdateUserDto userDto)
