@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Readify.Entities
 {
@@ -16,11 +16,8 @@ namespace Readify.Entities
 
         public bool isOnSale { get; set; }
 
-        [ForeignKey(nameof(Book))]
+        public Guid BookId { get; set; } // FK to Book
 
-        public Guid BookId { get; set; }
-
-        public virtual Book? Book { get; set; }
-
+        public virtual Book? Book { get; set; } // Navigation property
     }
 }

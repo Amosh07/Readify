@@ -26,7 +26,7 @@ namespace Readify.Service
                     PublisherId = bookDto.PublisherId,
                     CategoryId = bookDto.CategoryId,
                     LanguageId = bookDto.LanguageId,
-                    OrderitemsId = bookDto.OrderItemId,
+                    OrderItemId = bookDto.OrderItemId,
                     WhitelistId = bookDto.WhiteListId,
                     Format = bookDto.Format,
                     Description = bookDto.Description,
@@ -83,7 +83,7 @@ namespace Readify.Service
                         PublisherId = b.PublisherId,
                         CategoryId = b.CategoryId,
                         LanguageId = b.LanguageId,
-                        OrderItemId = b.OrderitemsId,
+                        OrderItemId = b.OrderItemId,
                         WhiteListId = b.WhitelistId,
                         Format = b.Format,
                         Description = b.Description,
@@ -120,7 +120,7 @@ namespace Readify.Service
                     PublisherId = book.PublisherId,
                     CategoryId = book.CategoryId,
                     LanguageId = book.LanguageId,
-                    OrderItemId= book.OrderitemsId,
+                    OrderItemId= book.OrderItemId,
                     WhiteListId= book.WhitelistId,
                     Format = book.Format,
                     Description = book.Description,
@@ -151,7 +151,7 @@ namespace Readify.Service
                 book.PublisherId = bookDto.PublisherId;
                 book.CategoryId = bookDto.CategoryId;
                 book.LanguageId = bookDto.LanguageId;
-                book.OrderitemsId = bookDto.OrderItemId;
+                book.OrderItemId = bookDto.OrderItemId;
                 book.WhitelistId = bookDto.WhiteListId;
                 book.Format = bookDto.Format;
                 book.Description = bookDto.Description;

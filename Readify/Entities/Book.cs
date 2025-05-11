@@ -18,33 +18,23 @@ namespace Readify.Entities
         public DateTime PublishDate { get; set; }
         public DateTime CreatedDate { get; set; }
 
-        [ForeignKey(nameof(Author))]
+        // Foreign Keys
         public Guid AuthorId { get; set; }
-
-        [ForeignKey(nameof(Publisher))]
         public Guid PublisherId { get; set; }
-
-        [ForeignKey(nameof(Category))]
         public Guid CategoryId { get; set; }
-
-        [ForeignKey(nameof(Language))]
         public Guid LanguageId { get; set; }
+        public Guid WhitelistId { get; set; }
 
-        [ForeignKey(nameof(OrderItem))]
-        public Guid OrderitemsId { get; set; }
-        public virtual OrderItem? OrderItem { get; set; }
+        public Guid OrderItemId { get; set; }
 
-        [ForeignKey(nameof(Whitelist))]
-        public Guid WhitelistId {  get; set; }
+        // Navigation Properties
+        public virtual Author Author { get; set; }
+        public virtual Publisher Publisher { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual Language Language { get; set; }
+        public virtual Whitelist Whitelist { get; set; }
 
-        public virtual Author? Author { get; set; }
-
-        public virtual Publisher? Publisher { get; set; }
-
-        public virtual Category? Category { get; set; }
-
-        public virtual Language? Language { get; set; }
-
-        public virtual Whitelist? Whitelist { get; set; }
+        // A book can be in multiple order items
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }

@@ -12,8 +12,8 @@ using Readify.Data;
 namespace Readify.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250506072554_intial")]
-    partial class intial
+    [Migration("20250507053700_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,7 +53,7 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "585c3e0d-c65a-4fbf-a2c9-35ef81bf8b36",
+                            Id = "85d36c68-7a31-4ddf-b3ac-19fba752ae04",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -150,17 +150,17 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "267d300d-6457-4f86-a428-68a7a0ba0dc9",
+                            Id = "4302c0b4-8106-41a7-af18-49e5fa2aef09",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "230a33b0-bc72-46d1-90a0-1fda78a39ace",
+                            ConcurrencyStamp = "fa2d8f3e-d00d-48e5-8d35-c32945138b3e",
                             Email = "amoshhamal7@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@YOURAPP.COM",
                             NormalizedUserName = "AMOSHHAMAL7@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOiSdfKlVs0HiDlUxrC3TyKYtoDtiBlnwpUf9hydWMaRvIHJQR7KL4eL7m2cNk+01w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEd+aabd3O67hb6k2KmrHn9ebUFrRvgX59uG6cilLVVHyowu1rt6XkD32lVnqOMj+g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fc9d626e-1370-46e3-bb11-401356a5f5a0",
+                            SecurityStamp = "02f3917d-9e7e-4576-9d80-71d110249fdf",
                             TwoFactorEnabled = false,
                             UserName = "amoshhamal7@gmail.com"
                         });
@@ -230,8 +230,8 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "267d300d-6457-4f86-a428-68a7a0ba0dc9",
-                            RoleId = "585c3e0d-c65a-4fbf-a2c9-35ef81bf8b36"
+                            UserId = "4302c0b4-8106-41a7-af18-49e5fa2aef09",
+                            RoleId = "85d36c68-7a31-4ddf-b3ac-19fba752ae04"
                         });
                 });
 
@@ -389,6 +389,34 @@ namespace Readify.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categorys");
+                });
+
+            modelBuilder.Entity("Readify.Entities.Discount", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("DiscountPercentage")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("isOnSale")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Discounts");
                 });
 
             modelBuilder.Entity("Readify.Entities.Language", b =>
@@ -731,6 +759,17 @@ namespace Readify.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Readify.Entities.Discount", b =>
+                {
+                    b.HasOne("Readify.Entities.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("Readify.Entities.Order", b =>
