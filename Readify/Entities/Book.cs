@@ -23,18 +23,17 @@ namespace Readify.Entities
         public Guid PublisherId { get; set; }
         public Guid CategoryId { get; set; }
         public Guid LanguageId { get; set; }
-        public Guid WhitelistId { get; set; }
-
-        public Guid OrderItemId { get; set; }
+        //public Guid WhitelistId { get; set; }
+        //public Guid OrderItemId { get; set; }
 
         // Navigation Properties
         public virtual Author Author { get; set; }
         public virtual Publisher Publisher { get; set; }
         public virtual Category Category { get; set; }
         public virtual Language Language { get; set; }
-        public virtual Whitelist Whitelist { get; set; }
+        //public virtual Whitelist Whitelist { get; set; }
 
         // A book can be in multiple order items
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        //public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }

@@ -12,7 +12,7 @@ using Readify.Data;
 namespace Readify.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250507053700_initial")]
+    [Migration("20250511153621_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -53,7 +53,7 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "85d36c68-7a31-4ddf-b3ac-19fba752ae04",
+                            Id = "e6b2eed2-6d1e-4420-8ad1-72e68c01ff39",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -150,17 +150,17 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4302c0b4-8106-41a7-af18-49e5fa2aef09",
+                            Id = "f6ba1e76-7138-41ff-88cc-0fb4eef0673d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fa2d8f3e-d00d-48e5-8d35-c32945138b3e",
+                            ConcurrencyStamp = "766f321b-e1be-42c2-9c24-6dc833bcad11",
                             Email = "amoshhamal7@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@YOURAPP.COM",
                             NormalizedUserName = "AMOSHHAMAL7@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEd+aabd3O67hb6k2KmrHn9ebUFrRvgX59uG6cilLVVHyowu1rt6XkD32lVnqOMj+g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHyDhlvNoI7Amd0LMDaGB9uRh8hJusc2F5OU8+OmKlbzTNkbvaa+EnuTW1FGM0fU7A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "02f3917d-9e7e-4576-9d80-71d110249fdf",
+                            SecurityStamp = "1837ed00-6836-4760-ae12-10c309b35a03",
                             TwoFactorEnabled = false,
                             UserName = "amoshhamal7@gmail.com"
                         });
@@ -230,8 +230,8 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "4302c0b4-8106-41a7-af18-49e5fa2aef09",
-                            RoleId = "85d36c68-7a31-4ddf-b3ac-19fba752ae04"
+                            UserId = "f6ba1e76-7138-41ff-88cc-0fb4eef0673d",
+                            RoleId = "e6b2eed2-6d1e-4420-8ad1-72e68c01ff39"
                         });
                 });
 
@@ -302,9 +302,6 @@ namespace Readify.Migrations
                     b.Property<Guid>("LanguageId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("OrderitemsId")
-                        .HasColumnType("uuid");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
@@ -324,9 +321,6 @@ namespace Readify.Migrations
                     b.Property<int>("TotalSold")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("WhitelistId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
@@ -335,12 +329,7 @@ namespace Readify.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.HasIndex("OrderitemsId")
-                        .IsUnique();
-
                     b.HasIndex("PublisherId");
-
-                    b.HasIndex("WhitelistId");
 
                     b.ToTable("Books");
                 });
@@ -540,10 +529,7 @@ namespace Readify.Migrations
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("RatingId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("Review")
+                    b.Property<Guid>("ReviewId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -552,7 +538,7 @@ namespace Readify.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.HasIndex("RatingId");
+                    b.HasIndex("ReviewId");
 
                     b.ToTable("PurchaseHistories");
                 });
@@ -569,11 +555,11 @@ namespace Readify.Migrations
                     b.Property<Guid>("PersonId")
                         .HasColumnType("uuid");
 
+                    b.Property<int>("Rating")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("ReviewDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("rating")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -696,37 +682,25 @@ namespace Readify.Migrations
                     b.HasOne("Readify.Entities.Author", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Readify.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Readify.Entities.Language", "Language")
                         .WithMany()
                         .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Readify.Entities.OrderItem", "OrderItem")
-                        .WithOne()
-                        .HasForeignKey("Readify.Entities.Book", "OrderitemsId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Readify.Entities.Publisher", "Publisher")
                         .WithMany()
                         .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Readify.Entities.Whitelist", "Whitelist")
-                        .WithMany()
-                        .HasForeignKey("WhitelistId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Author");
@@ -735,11 +709,7 @@ namespace Readify.Migrations
 
                     b.Navigation("Language");
 
-                    b.Navigation("OrderItem");
-
                     b.Navigation("Publisher");
-
-                    b.Navigation("Whitelist");
                 });
 
             modelBuilder.Entity("Readify.Entities.CartItem", b =>
@@ -792,7 +762,7 @@ namespace Readify.Migrations
                         .IsRequired();
 
                     b.HasOne("Readify.Entities.Order", "Order")
-                        .WithMany()
+                        .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -818,7 +788,9 @@ namespace Readify.Migrations
 
                     b.HasOne("Readify.Entities.Review", "Rating")
                         .WithMany()
-                        .HasForeignKey("RatingId");
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Book");
 
@@ -863,6 +835,11 @@ namespace Readify.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Readify.Entities.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

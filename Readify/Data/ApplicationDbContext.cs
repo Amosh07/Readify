@@ -57,17 +57,17 @@ namespace Readify.Data
                 .HasForeignKey(b => b.LanguageId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Book>()
-                .HasOne(b => b.Whitelist)
-                .WithMany()
-                .HasForeignKey(b => b.WhitelistId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //modelBuilder.Entity<Book>()
+            //    .HasOne(b => b.Whitelist)
+            //    .WithMany()
+            //    .HasForeignKey(b => b.WhitelistId)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<OrderItem>()
-                .HasOne(oi => oi.Book)
-                .WithMany(b => b.OrderItems)
-                .HasForeignKey(oi => oi.BookId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<OrderItem>()
+            //    .HasOne(oi => oi.Book)
+            //    .WithMany(b => b.OrderItems)
+            //    .HasForeignKey(oi => oi.BookId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<CartItem>()
                 .HasOne(ci => ci.User)
@@ -99,11 +99,11 @@ namespace Readify.Data
                 .HasForeignKey(oi => oi.OrderId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<OrderItem>()
-                .HasOne(oi => oi.Book)
-                .WithMany(b => b.OrderItems)  
-                .HasForeignKey(oi => oi.BookId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<OrderItem>()
+            //    .HasOne(oi => oi.Book)
+            //    .WithMany(b => b.OrderItems)  
+            //    .HasForeignKey(oi => oi.BookId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<PurchaseHistory>()
                 .HasOne(ph => ph.User)
