@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Readify.DTOs.Author;
+using Readify.Service;
 using Readify.Service.Interface;
 
 namespace Readify.Controllers
@@ -80,9 +81,16 @@ namespace Readify.Controllers
 
             }
             catch (Exception ex)
-            {
+            { 
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchAuthors([FromQuery] AuthorSearchFilterDto filters)
+        {
+            var authors = await authorService.FilterAuthorsAsync(filters);
+            return Ok(authors);
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using Readify.DTOs.Language;
+using Readify.Entities;
 
 namespace Readify.Service.Interface
 {
@@ -13,5 +14,7 @@ namespace Readify.Service.Interface
         void DeleteLanguage(Guid id);
 
         void UpdateLanguage(Guid id, UpdateLanguageDto languageDto);
+
+        Task<IEnumerable<Language>> FilterLanguagesAsync(LanguageSearchFilterDto filters);
     }
 }

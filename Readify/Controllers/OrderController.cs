@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Readify.DTOs.Order;
+using Readify.Service;
 using Readify.Service.Interface;
 
 namespace Readify.Controllers
@@ -85,5 +86,11 @@ namespace Readify.Controllers
             }
         }
 
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchOrders([FromQuery] OrderSearchFilterDto filters)
+        {
+            var result = await orderService.FilterOrdersAsync(filters);
+            return Ok(result);
+        }
     }
 }

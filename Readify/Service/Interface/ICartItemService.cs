@@ -1,4 +1,5 @@
 ﻿using Readify.DTOs.CartItem;
+using Readify.Entities;
 
 namespace Readify.Service.Interface
 {
@@ -13,5 +14,7 @@ namespace Readify.Service.Interface
         void DeleteCartItem(Guid id);
 
         void UpdateCartItem(Guid id, UpdateCartItemDto cartItemDto);
+
+        Task<IEnumerable<CartItem>> FilterCartItemsAsync(CartItemSearchFilterDto filters);
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Readify.DTOs.Publisher;
+using Readify.Service;
 using Readify.Service.Interface;
 
 namespace Readify.Controllers
@@ -69,7 +70,12 @@ namespace Readify.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [HttpGet("search")]
+        public IActionResult FilterPublishers([FromQuery] PublisherSearchFilterDto filter)
+        {
+            var result = publisherService.FilterPublishers(filter);
+            return Ok(result);
+        }
     }
 }
 

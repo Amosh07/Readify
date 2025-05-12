@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Readify.DTOs.PurchaseHistory;
+using Readify.Service;
 using Readify.Service.Interface;
 
 namespace Readify.Controllers
@@ -84,6 +85,11 @@ namespace Readify.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [HttpGet("search")]
+        public IActionResult Filter([FromQuery] PurchaseHistoryFilterDto filter)
+        {
+            var result = purchasehistoryService.Filter(filter);
+            return Ok(result);
+        }
     }
 }

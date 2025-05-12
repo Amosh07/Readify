@@ -35,7 +35,7 @@ namespace Readify.Service
                     Stock = bookDto.Stock,
                     PublishDate = bookDto.PublishDate,
                     CreatedDate = DateTime.UtcNow,
-                    TotalSold = 0
+                    TotalSold = bookDto.TotalSold
                 };
 
                 _context.Books.Add(book);

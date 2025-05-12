@@ -1,4 +1,5 @@
-﻿using Readify.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Readify.Data;
 using Readify.DTOs.CartItem;
 using Readify.Entities;
 using Readify.Service.Interface;
@@ -121,6 +122,34 @@ namespace Readify.Service
             {
                 throw new Exception("Error updating cart item: " + ex.Message);
             }
+        }
+
+        public async Task<IEnumerable<CartItem>> FilterCartItemsAsync(CartItemSearchFilterDto filters)
+        {
+            var query = _context.CartItems
+                .Include(c => c.Book)
+                .Include(c => c.User)
+                .AsQueryable();
+
+            if (filters.PersonId.HasValue)
+                query = query.Where(c => c.PersonId == filters.PersonId.Value);
+
+            if (filters.BookId.HasValue)
+                query = query.Where(c => c.BookId == filters.BookId.Value);
+
+            if (filters.MinQty.HasValue)
+                query = query.Where(c => c.Qty >= filters.MinQty.Value);
+
+            if (filters.MaxQty.HasValue)
+                query = query.Where(c => c.Qty <= filters.MaxQty.Value);
+
+            if (filters.CreatedAfter.HasValue)
+                query = query.Where(c => c.CreatedDate >= filters.CreatedAfter.Value);
+
+            if (filters.CreatedBefore.HasValue)
+                query = query.Where(c => c.CreatedDate <= filters.CreatedBefore.Value);
+
+            return await query.ToListAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Readify.DTOs.Author;
+using Readify.Entities;
 
 namespace Readify.Service.Interface
 {
@@ -13,5 +14,7 @@ namespace Readify.Service.Interface
         void DeleteAuthor(Guid id);
 
         void UpdateAuthor(Guid id, UpdateAuthorDto authorDto);
+
+        Task<IEnumerable<Author>> FilterAuthorsAsync(AuthorSearchFilterDto filters);
     }
 }
