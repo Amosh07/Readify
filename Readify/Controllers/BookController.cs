@@ -85,5 +85,34 @@ namespace Readify.Controllers
             }
         }
 
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchBooks([FromQuery] BookSearchFilterDto filters)
+        {
+            var books = await bookService.FilterBooksAsync(filters);
+
+            var result = books.Select(book => new GetAllBook
+            {
+                Id = book.Id,
+                ISBN = book.ISBN,
+                Title = book.Title,
+                AuthorId = book.AuthorId,
+                PublisherId = book.PublisherId,
+                CategoryId = book.CategoryId,
+                LanguageId = book.LanguageId,
+                //OrderItemId = book.OrderitemsId,
+                //WhiteListId = book.WhitelistId,
+                Format = book.Format,
+                Description = book.Description,
+                Price = book.Price,
+                Stock = book.Stock,
+                TotalSold = book.TotalSold,
+                PublishDate = book.PublishDate,
+                CreatedDate = book.CreatedDate,
+                AverageRating = book.Reviews.Any() ? book.Reviews.Average(r => r.Rating) : null
+            });
+
+            return Ok(result);
+        }
+
     }
 }

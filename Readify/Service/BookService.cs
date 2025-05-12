@@ -1,4 +1,5 @@
-﻿using Readify.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Readify.Data;
 using Readify.DTOs.Book;
 using Readify.Entities;
 using Readify.Service.Interface;
@@ -34,7 +35,7 @@ namespace Readify.Service
                     Stock = bookDto.Stock,
                     PublishDate = bookDto.PublishDate,
                     CreatedDate = DateTime.UtcNow,
-                    TotalSold = 0 
+                    TotalSold = 0
                 };
 
                 _context.Books.Add(book);
@@ -167,9 +168,56 @@ namespace Readify.Service
                 throw new Exception("Error updating book: " + ex.Message);
             }
         }
-        List<GetAllBook> IBookService.GetAllBooks()
+
+        public Task<IEnumerable<Book>> SearchBooksAsync(BookSearchFilterDto filters)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Book>> FilterBooksAsync(BookSearchFilterDto filters)
+        {
+            var query = _context.Books
+                .Include(b => b.Reviews)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filters.Title))
+                query = query.Where(b => b.Title.Contains(filters.Title));
+
+            if (!string.IsNullOrWhiteSpace(filters.ISBN))
+                query = query.Where(b => b.ISBN.Contains(filters.ISBN));
+
+            if (!string.IsNullOrWhiteSpace(filters.Description))
+                query = query.Where(b => b.Description.Contains(filters.Description));
+
+            if (filters.AuthorId.HasValue)
+                query = query.Where(b => b.AuthorId == filters.AuthorId);
+
+            if (filters.CategoryId.HasValue)
+                query = query.Where(b => b.CategoryId == filters.CategoryId);
+
+            if (filters.PublisherId.HasValue)
+                query = query.Where(b => b.PublisherId == filters.PublisherId);
+
+            if (filters.LanguageId.HasValue)
+                query = query.Where(b => b.LanguageId == filters.LanguageId);
+
+            if (!string.IsNullOrWhiteSpace(filters.Format))
+                query = query.Where(b => b.Format == filters.Format);
+
+            if (filters.MinPrice.HasValue)
+                query = query.Where(b => b.Price >= filters.MinPrice.Value);
+
+            if (filters.MaxPrice.HasValue)
+                query = query.Where(b => b.Price <= filters.MaxPrice.Value);
+
+            if (filters.InStockOnly == true)
+                query = query.Where(b => b.Stock > 0);
+
+            if (filters.MinRating.HasValue)
+                query = query.Where(b => b.Reviews.Any() &&
+                    b.Reviews.Average(r => r.Rating) >= filters.MinRating.Value);
+
+            return await query.ToListAsync();
         }
     }
 }

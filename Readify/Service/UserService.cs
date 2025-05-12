@@ -58,9 +58,9 @@ namespace Readify.Service
         {
             try
             {
-                var users = _context.Users.Where(u => u.IsActive).ToList();
-                if (users == null)
-                    throw new Exception("No active users found");
+                var users = _context.Users.ToList();
+                if (users == null || !users.Any())
+                    throw new Exception("No users found");
 
                 var result = new List<GetAllUser>();
                 foreach (var u in users)

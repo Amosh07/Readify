@@ -29,5 +29,7 @@
         public DateTime PublishDate { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        public double? AverageRating { get; set; }
     }
 }

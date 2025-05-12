@@ -44,6 +44,8 @@ namespace Readify.Service
             try
             {
                 var whiteList = _context.Whitelists.ToList();
+                if (whiteList == null || !whiteList.Any())
+                    throw new Exception("No whitelist found");
                 var whiteListDto = new List<GetAllWhiteList>();
                 foreach (var w in whiteList)
                 {

@@ -78,6 +78,7 @@ namespace Readify.Service
                 throw new Exception("Error fetching cart items: " + ex.Message);
             }
         }
+
         public GetAllCartItem GetById(Guid id)
         {
             try
@@ -120,10 +121,6 @@ namespace Readify.Service
             {
                 throw new Exception("Error updating cart item: " + ex.Message);
             }
-        }
-        List<GetAllCartItem> ICartItemService.GetAllCartItems()
-        {
-            throw new NotImplementedException();
         }
     }
 }

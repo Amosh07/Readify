@@ -30,6 +30,7 @@ namespace Readify.Entities
         public virtual Publisher Publisher { get; set; }
         public virtual Category Category { get; set; }
         public virtual Language Language { get; set; }
-   
+        public virtual ICollection<Review>? Reviews { get; set; }
+
     }
 }
