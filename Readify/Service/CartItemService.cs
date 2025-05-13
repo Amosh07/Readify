@@ -3,7 +3,6 @@ using Readify.Data;
 using Readify.DTOs.CartItem;
 using Readify.Entities;
 using Readify.Service.Interface;
-using System.Net;
 
 namespace Readify.Service
 {

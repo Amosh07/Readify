@@ -9,7 +9,6 @@ namespace Readify.Controllers
     [Authorize]
     [ApiController]
     [Route("api/author")]
-
     public class AuthorController(IAuthorService authorService) : Controller
     {
         [HttpPost("Add")]
