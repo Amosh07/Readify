@@ -13,5 +13,7 @@ namespace Readify.Service.Interface
         void DeletePublisher(Guid id);
 
         void UpdatePublisher(Guid id, UpdatePublisherDto publisherDto);
+
+        List<GetAllPublisher> FilterPublishers(PublisherSearchFilterDto filter);
     }
 }

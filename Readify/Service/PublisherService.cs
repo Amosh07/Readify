@@ -103,5 +103,26 @@ namespace Readify.Service
                 throw new Exception("Error updating publisher: " + ex.Message);
             }
         }
+
+        public List<GetAllPublisher> FilterPublishers(PublisherSearchFilterDto filter)
+        {
+            var query = _context.Publishers.AsQueryable();
+
+            if (filter.Id.HasValue)
+            {
+                query = query.Where(p => p.Id == filter.Id.Value);
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.Name))
+            {
+                query = query.Where(p => p.Name.Contains(filter.Name));
+            }
+
+            return query.Select(p => new GetAllPublisher
+            {
+                Id = p.Id,
+                Name = p.Name
+            }).ToList();
+        }
     }
 }

@@ -3,7 +3,6 @@ using Readify.DTOs.Order;
 using Readify.Entities;
 using Readify.Service.Interface;
 
-
 namespace Readify.Service
 {
     public class OrderService : IOrderService
@@ -82,6 +81,11 @@ namespace Readify.Service
             {
                 throw new Exception("Error deleting order: " + ex.Message);
             }
+        }
+
+        public Task<IEnumerable<Order>> FilterOrdersAsync(OrderSearchFilterDto filters)
+        {
+            throw new NotImplementedException();
         }
 
         public List<GetAllOrder> GetAllOrders()

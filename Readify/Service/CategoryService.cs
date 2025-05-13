@@ -1,4 +1,5 @@
-﻿using Readify.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Readify.Data;
 using Readify.DTOs.Category;
 using Readify.Entities;
 using Readify.Service.Interface;
@@ -116,6 +117,19 @@ namespace Readify.Service
             {
                 throw new Exception("Error updating category: " + ex.Message);
             }
+        }
+
+        public async Task<IEnumerable<Category>> FilterCategoriesAsync(CategorySearchFilterDto filters)
+        {
+            var query = _context.Categorys.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filters.Name))
+                query = query.Where(c => c.Name.Contains(filters.Name));
+
+            if (!string.IsNullOrWhiteSpace(filters.Description))
+                query = query.Where(c => c.Description.Contains(filters.Description));
+
+            return await query.ToListAsync();
         }
     }
 }

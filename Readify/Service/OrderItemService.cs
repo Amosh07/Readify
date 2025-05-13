@@ -1,4 +1,6 @@
-﻿using Readify.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Readify.Data;
+using Readify.DTOs.Order;
 using Readify.DTOs.OrderItem;
 using Readify.Entities;
 using Readify.Service.Interface;
@@ -121,6 +123,43 @@ namespace Readify.Service
             {
                 throw new Exception("Error updating order item: " + ex.Message);
             }
+        }
+
+        public async Task<IEnumerable<Order>> FilterOrdersAsync(OrderSearchFilterDto filters)
+        {
+            var query = _context.Orders
+                .Include(o => o.User)
+                .Include(o => o.OrderItems)
+                .AsQueryable();
+
+            if (filters.PersonId.HasValue)
+                query = query.Where(o => o.PersonId == filters.PersonId.Value);
+
+            if (filters.DiscountApplied.HasValue)
+                query = query.Where(o => o.DiscountApplied == filters.DiscountApplied.Value);
+
+            if (filters.IsCancelled.HasValue)
+                query = query.Where(o => o.IsCancelled == filters.IsCancelled.Value);
+
+            if (!string.IsNullOrWhiteSpace(filters.Status))
+                query = query.Where(o => o.Status.Contains(filters.Status));
+
+            if (!string.IsNullOrWhiteSpace(filters.ClaimCode))
+                query = query.Where(o => o.ClaimCode.Contains(filters.ClaimCode));
+
+            if (filters.FromOrderDate.HasValue)
+                query = query.Where(o => o.OrderDate >= filters.FromOrderDate.Value);
+
+            if (filters.ToOrderDate.HasValue)
+                query = query.Where(o => o.OrderDate <= filters.ToOrderDate.Value);
+
+            if (filters.MinAmount.HasValue)
+                query = query.Where(o => o.OrderAmount >= filters.MinAmount.Value);
+
+            if (filters.MaxAmount.HasValue)
+                query = query.Where(o => o.OrderAmount <= filters.MaxAmount.Value);
+
+            return await query.ToListAsync();
         }
     }
 

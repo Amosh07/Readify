@@ -1,4 +1,5 @@
-﻿using Readify.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Readify.Data;
 using Readify.DTOs.Author;
 using Readify.Entities;
 using Readify.Service.Interface;
@@ -110,5 +111,18 @@ namespace Readify.Service
                 throw new Exception("Error updating author: " + ex.Message);
             }
         }
+        public async Task<IEnumerable<Author>> FilterAuthorsAsync(AuthorSearchFilterDto filters)
+        {
+            var query = _context.Authors.AsQueryable();
+
+            if (filters.Id.HasValue)
+                query = query.Where(a => a.Id == filters.Id.Value);
+
+            if (!string.IsNullOrWhiteSpace(filters.Name))
+                query = query.Where(a => a.Name.Contains(filters.Name));
+
+            return await query.ToListAsync();
+        }
+
     }
 }

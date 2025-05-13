@@ -1,4 +1,5 @@
-﻿using Readify.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Readify.Data;
 using Readify.DTOs.Language;
 using Readify.Entities;
 using Readify.Service.Interface;
@@ -111,6 +112,16 @@ namespace Readify.Service
             {
                 throw new Exception("Error updating language: " + ex.Message);
             }
+        }
+
+        public async Task<IEnumerable<Language>> FilterLanguagesAsync(LanguageSearchFilterDto filters)
+        {
+            var query = _context.Languages.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filters.Name))
+                query = query.Where(l => l.Name.Contains(filters.Name));
+
+            return await query.ToListAsync();
         }
     }
 }

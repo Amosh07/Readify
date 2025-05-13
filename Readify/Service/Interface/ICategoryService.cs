@@ -1,4 +1,5 @@
 ﻿using Readify.DTOs.Category;
+using Readify.Entities;
 
 namespace Readify.Service.Interface
 {
@@ -13,5 +14,7 @@ namespace Readify.Service.Interface
         void DeleteCategory(Guid id);
 
         void UpdateCategory(Guid id, UpdateCategoryDto categoryDto);
+
+        Task<IEnumerable<Category>> FilterCategoriesAsync(CategorySearchFilterDto filters);
     }
 }

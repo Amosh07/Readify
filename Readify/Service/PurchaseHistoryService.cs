@@ -119,5 +119,38 @@ namespace Readify.Service
                 throw new Exception("Error updating purchase history: " + ex.Message);
             }
         }
+
+        public List<GetAllPurchaseHistory> Filter(PurchaseHistoryFilterDto filter)
+        {
+            var query = _context.PurchaseHistories.AsQueryable();
+
+            if (filter.PersonId.HasValue)
+                query = query.Where(p => p.PersonId == filter.PersonId.Value);
+
+            if (filter.BookId.HasValue)
+                query = query.Where(p => p.BookId == filter.BookId.Value);
+
+            if (filter.ReviewId.HasValue)
+                query = query.Where(p => p.ReviewId == filter.ReviewId.Value);
+
+            if (filter.StartDate.HasValue)
+                query = query.Where(p => p.PurchaseDate >= filter.StartDate.Value);
+
+            if (filter.EndDate.HasValue)
+                query = query.Where(p => p.PurchaseDate <= filter.EndDate.Value);
+
+            if (!string.IsNullOrWhiteSpace(filter.CommentKeyword))
+                query = query.Where(p => p.Comment.Contains(filter.CommentKeyword));
+
+            return query.Select(p => new GetAllPurchaseHistory
+            {
+                Id = p.Id,
+                UserId = p.PersonId,
+                BookId = p.BookId,
+                ReviewId = p.ReviewId,
+                Comment = p.Comment,
+                PurchaseDate = p.PurchaseDate
+            }).ToList();
+        }
     }
 }

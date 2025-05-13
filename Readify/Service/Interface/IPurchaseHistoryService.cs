@@ -13,5 +13,7 @@ namespace Readify.Service.Interface
         void DeletePurchaseHistory(Guid id);
 
         void UpdatePurchaseHistory(Guid id, UpdatePurchaseHistoryDto purchaseHistoryDto);
+
+        List<Readify.DTOs.PurchaseHistory.GetAllPurchaseHistory> Filter(PurchaseHistoryFilterDto filter);
     }
 }

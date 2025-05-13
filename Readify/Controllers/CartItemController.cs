@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Readify.DTOs.CartItem;
+using Readify.Service;
 using Readify.Service.Interface;
 
 namespace Readify.Controllers
@@ -83,6 +84,13 @@ namespace Readify.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchCartItems([FromQuery] CartItemSearchFilterDto filters)
+        {
+            var filteredItems = await cartitemService.FilterCartItemsAsync(filters);
+            return Ok(filteredItems);
         }
 
     }
