@@ -2,12 +2,31 @@ using Microsoft.EntityFrameworkCore;
 using Readify.Data;
 using Readify.Service.Interface;
 using Readify.Service;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
+using Readify.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// Add a more permissive CORS policy for development
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+
+    options.AddPolicy("AllowVueApp", builder =>
+    {
+        builder.WithOrigins("http://localhost:5173")
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials();
+    });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -40,15 +59,15 @@ builder.Services.AddSwaggerGen(option =>
                     Type = ReferenceType.SecurityScheme,
                     Id =  "Bearer"
                 }
-            },[]
+            },
+            new string[] {}
         }
-
     });
 });
 
 builder.Services.AddAuthentication();
 
-builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(
@@ -60,7 +79,7 @@ builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<ICartItemService, CartItemService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IDiscountService, DiscountService>();
-builder.Services.AddScoped<ILanguageService, LanguageService> ();
+builder.Services.AddScoped<ILanguageService, LanguageService>();
 builder.Services.AddScoped<IOrderItemService, OrderItemService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IPublisherService, PublisherService>();
@@ -69,8 +88,6 @@ builder.Services.AddScoped<IPurchaseHistoryService, PurchaseHistoryService>();
 
 var app = builder.Build();
 
-app.MapIdentityApi<IdentityUser>();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -78,10 +95,24 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Use CORS before all other middleware
+app.UseCors();
+
 app.UseHttpsRedirection();
 
+// Correct middleware order for ASP.NET Core
+app.UseRouting();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
+// Apply CORS again after authorization - belt and suspenders approach
+app.UseCors("AllowVueApp");
+
+// Map identity endpoints
+app.MapIdentityApi<ApplicationUser>();
+
+// Map controller endpoints
 app.MapControllers();
 
 app.Run();

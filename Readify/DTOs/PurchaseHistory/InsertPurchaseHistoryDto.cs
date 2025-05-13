@@ -3,7 +3,7 @@
     public class InsertPurchaseHistoryDto
     {
 
-        public Guid UserId { get; set; }
+        public string PersonId { get; set; }
 
         public Guid BookId { get; set; }
 

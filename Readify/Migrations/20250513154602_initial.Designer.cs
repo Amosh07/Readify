@@ -12,7 +12,7 @@ using Readify.Data;
 namespace Readify.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250512082042_initial")]
+    [Migration("20250513154602_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -53,7 +53,7 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "91b47d9f-0d0c-45b6-83eb-ca77451d529f",
+                            Id = "b858bcdb-f01a-4660-85e9-cb941bc11b90",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -82,88 +82,6 @@ namespace Readify.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "6009dd0c-db43-469c-baca-494a709d5a00",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "ac2bf1cb-a470-4d2c-b4b6-8b0b60f60aad",
-                            Email = "amoshhamal7@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@YOURAPP.COM",
-                            NormalizedUserName = "AMOSHHAMAL7@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMdhFduS4qOx0rUZphi8SSsz/YrFRwtfe0tL8U89E2tWHweRy1+gSI6JCV8udrcFnA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1b8fd0a0-28ad-4499-a728-f07d56d0f545",
-                            TwoFactorEnabled = false,
-                            UserName = "amoshhamal7@gmail.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -230,8 +148,8 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6009dd0c-db43-469c-baca-494a709d5a00",
-                            RoleId = "91b47d9f-0d0c-45b6-83eb-ca77451d529f"
+                            UserId = "cdf39635-d5ba-47b6-95bd-5a11607e5e5b",
+                            RoleId = "b858bcdb-f01a-4660-85e9-cb941bc11b90"
                         });
                 });
 
@@ -252,6 +170,115 @@ namespace Readify.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Readify.Entities.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("RegisteredDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "cdf39635-d5ba-47b6-95bd-5a11607e5e5b",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "63b29a16-676a-45e4-ab81-9111cce08599",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "",
+                            Gender = 0,
+                            ImageUrl = "",
+                            IsActive = true,
+                            LastName = "",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@YOURAPP.COM",
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHv7EmQLZJynSTVHBowDYf/3KCCPvgojYwbXSQDyn8BjrjxFzy2hN9H1o7DedyWMIw==",
+                            PhoneNumberConfirmed = false,
+                            RegisteredDate = new DateTime(2025, 5, 13, 15, 46, 2, 300, DateTimeKind.Utc).AddTicks(8030),
+                            SecurityStamp = "eeeabaa3-bc81-4d6c-81f2-b56ea5ef5d66",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("Readify.Entities.Author", b =>
@@ -346,8 +373,9 @@ namespace Readify.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("PersonId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("Qty")
                         .HasColumnType("integer");
@@ -445,8 +473,9 @@ namespace Readify.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("PersonId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -523,8 +552,9 @@ namespace Readify.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("PersonId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("timestamp with time zone");
@@ -555,8 +585,9 @@ namespace Readify.Migrations
                     b.Property<Guid?>("BookId1")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("PersonId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("Rating")
                         .HasColumnType("integer");
@@ -575,38 +606,6 @@ namespace Readify.Migrations
                     b.ToTable("Review");
                 });
 
-            modelBuilder.Entity("Readify.Entities.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("RegisteredDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User");
-                });
-
             modelBuilder.Entity("Readify.Entities.Whitelist", b =>
                 {
                     b.Property<Guid>("Id")
@@ -619,8 +618,9 @@ namespace Readify.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("PersonId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -642,7 +642,7 @@ namespace Readify.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Readify.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -651,7 +651,7 @@ namespace Readify.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Readify.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -666,7 +666,7 @@ namespace Readify.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Readify.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -675,7 +675,7 @@ namespace Readify.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Readify.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -725,7 +725,7 @@ namespace Readify.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Readify.Entities.User", "User")
+                    b.HasOne("Readify.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -749,7 +749,7 @@ namespace Readify.Migrations
 
             modelBuilder.Entity("Readify.Entities.Order", b =>
                 {
-                    b.HasOne("Readify.Entities.User", "User")
+                    b.HasOne("Readify.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -785,7 +785,7 @@ namespace Readify.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Readify.Entities.User", "User")
+                    b.HasOne("Readify.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -816,7 +816,7 @@ namespace Readify.Migrations
                         .WithMany("Reviews")
                         .HasForeignKey("BookId1");
 
-                    b.HasOne("Readify.Entities.User", "User")
+                    b.HasOne("Readify.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -835,7 +835,7 @@ namespace Readify.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Readify.Entities.User", "User")
+                    b.HasOne("Readify.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)

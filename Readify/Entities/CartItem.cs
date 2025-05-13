@@ -11,10 +11,10 @@ namespace Readify.Entities
         public int Qty { get; set; }
         public DateTime CreatedDate { get; set; }
 
-        public Guid PersonId { get; set; } // Foreign key to User
+        public String PersonId { get; set; } // Foreign key to User
         public Guid BookId { get; set; }   // Foreign key to Book
 
-        public virtual User? User { get; set; }
+        public virtual ApplicationUser? User { get; set; }
         public virtual Book? Book { get; set; }
     }
 }

@@ -5,7 +5,7 @@ namespace Readify.DTOs.User
 {
     public class GetAllUser
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string FirstName { get; set; }
 
