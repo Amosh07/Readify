@@ -18,7 +18,7 @@ namespace Readify.Service
         {
             try
             {
-                var user = new User
+                var user = new ApplicationUser
                 {
                     FirstName = userDto.FirstName,
                     LastName = userDto.LastName,
@@ -37,7 +37,7 @@ namespace Readify.Service
             }
         }
 
-        public void DeleteUser(Guid id)
+        public void DeleteUser(string id)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace Readify.Service
             }
         }
 
-        public GetAllUser GetById(Guid id)
+        public GetAllUser GetById(string id)
         {
             var user = _context.Users.FirstOrDefault(u => u.Id == id);
 
@@ -102,7 +102,7 @@ namespace Readify.Service
             return result;
         }
 
-        public void UpdateUser(Guid id, UpdateUserDto userDto)
+        public void UpdateUser(string id, UpdateUserDto userDto)
         {
             try
             {

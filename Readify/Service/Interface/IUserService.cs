@@ -9,10 +9,10 @@ namespace Readify.Service.Interface
 
         List<GetAllUser> GetAllUsers();
 
-        GetAllUser GetById(Guid id);
+        GetAllUser GetById(string id);
 
-        void DeleteUser(Guid id);
+        void DeleteUser(string id);
 
-        void UpdateUser(Guid id, UpdateUserDto userDto);
+        void UpdateUser(string id, UpdateUserDto userDto);
     }
 }
