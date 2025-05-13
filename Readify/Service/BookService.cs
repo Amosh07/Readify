@@ -185,6 +185,9 @@ namespace Readify.Service
             if (!string.IsNullOrWhiteSpace(filters.Description))
                 query = query.Where(b => b.Description.Contains(filters.Description));
 
+            if (!string.IsNullOrWhiteSpace(filters.ImageUrl))
+                query = query.Where(b => b.ImageURL.Contains(filters.ImageUrl));
+
             if (filters.AuthorId.HasValue)
                 query = query.Where(b => b.AuthorId == filters.AuthorId);
 
