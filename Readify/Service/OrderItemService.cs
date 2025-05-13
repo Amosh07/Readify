@@ -132,9 +132,6 @@ namespace Readify.Service
                 .Include(o => o.OrderItems)
                 .AsQueryable();
 
-            if (filters.PersonId.HasValue)
-                query = query.Where(o => o.PersonId == filters.PersonId.Value);
-
             if (filters.DiscountApplied.HasValue)
                 query = query.Where(o => o.DiscountApplied == filters.DiscountApplied.Value);
 

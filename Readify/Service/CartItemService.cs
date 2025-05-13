@@ -131,8 +131,8 @@ namespace Readify.Service
                 .Include(c => c.User)
                 .AsQueryable();
 
-            if (filters.PersonId.HasValue)
-                query = query.Where(c => c.PersonId == filters.PersonId.Value);
+            if (!string.IsNullOrWhiteSpace(filters.PersonId))
+                query = query.Where(c => c.PersonId == filters.PersonId);
 
             if (filters.BookId.HasValue)
                 query = query.Where(c => c.BookId == filters.BookId.Value);

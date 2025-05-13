@@ -2,7 +2,7 @@
 {
     public class CartItemSearchFilterDto
     {
-        public Guid? PersonId { get; set; }
+        public string PersonId { get; set; }
         public Guid? BookId { get; set; }
         public int? MinQty { get; set; }
         public int? MaxQty { get; set; }
