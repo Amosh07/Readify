@@ -5,12 +5,12 @@ using Readify.Entities;
 
 namespace Readify.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
+
         }
-        public DbSet<User> Users { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -160,23 +160,23 @@ namespace Readify.Data
             });
 
             // Create password hasher to hash the password
-            var hasher = new PasswordHasher<IdentityUser>();
+            var hasher = new PasswordHasher<ApplicationUser>();
 
-            var adminUser = new IdentityUser
+            var adminUser = new ApplicationUser
             {
                 Id = adminUserId,
-                UserName = "amoshhamal7@gmail.com",
-                NormalizedUserName = "AMOSHHAMAL7@gmail.com",
-                Email = "amoshhamal7@gmail.com",
+                UserName = "admin@gmail.com",
+                NormalizedUserName = "ADMIN@GMAIL.COM",
+                Email = "admin@gmail.com",
                 NormalizedEmail = "ADMIN@YOURAPP.COM",
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString("D"),
                 ConcurrencyStamp = Guid.NewGuid().ToString("D")
             };
 
-            adminUser.PasswordHash = hasher.HashPassword(adminUser, "Sanuhamal@123");
+            adminUser.PasswordHash = hasher.HashPassword(adminUser, "Admin@123");
 
-            modelBuilder.Entity<IdentityUser>().HasData(adminUser);
+            modelBuilder.Entity<ApplicationUser>().HasData(adminUser);
 
             // Assign Role to Admin User
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>

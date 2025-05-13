@@ -20,8 +20,7 @@ namespace Readify.Service
             {
                 var whiteList = new Whitelist
                 {
-                    Id = whiteListDto.UserId,
-                    PersonId = whiteListDto.UserId,
+                    PersonId = whiteListDto.PersonId,
                     BookId = whiteListDto.BookId,
                     CreatedDate = whiteListDto.CreatedDate
                 };
@@ -52,7 +51,7 @@ namespace Readify.Service
                     whiteListDto.Add(new GetAllWhiteList
                     {
                         Id = w.Id,
-                        UserId = w.PersonId,
+                        PersonId = w.PersonId,
                         BookId = w.BookId,
                         CreatedDate = w.CreatedDate
                     });
@@ -75,7 +74,7 @@ namespace Readify.Service
                 return new GetAllWhiteList
                 {
                     Id = whiteList.Id,
-                    UserId = whiteList.PersonId,
+                    PersonId = whiteList.PersonId,
                     BookId = whiteList.BookId,
                     CreatedDate = whiteList.CreatedDate
                 };
@@ -109,7 +108,7 @@ namespace Readify.Service
                 var whiteList = _context.Whitelists.FirstOrDefault(w => w.Id == id);
                 if (whiteList == null)
                     throw new Exception("Whitelist not found");
-                whiteList.PersonId = whiteListDto.UserId;
+                whiteList.PersonId = whiteListDto.PersonId;
                 whiteList.BookId = whiteListDto.BookId;
                 whiteList.CreatedDate = whiteListDto.CreatedDate;
                 _context.SaveChanges();

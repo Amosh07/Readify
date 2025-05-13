@@ -8,11 +8,11 @@ namespace Readify.Entities
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public Guid PersonId { get; set; } // FK to User
+        public string PersonId { get; set; } // FK to User
         public Guid BookId { get; set; }   // FK to Book
         public Guid ReviewId { get; set; } // FK to Review
 
-        public virtual User? User { get; set; }
+        public virtual ApplicationUser? User { get; set; }
         public virtual Book? Book { get; set; }
         public virtual Review? Rating { get; set; }
 

@@ -20,7 +20,7 @@ namespace Readify.Service
             {
                 var purchaseHistory = new PurchaseHistory
                 {
-                    PersonId = purchaseHistoryDto.UserId,
+                    PersonId = purchaseHistoryDto.PersonId,
                     BookId = purchaseHistoryDto.BookId,
                     ReviewId = purchaseHistoryDto.ReviewId,
                     Comment = purchaseHistoryDto.Comment,
@@ -64,7 +64,7 @@ namespace Readify.Service
                     purchaseHistoryDto.Add(new GetAllPurchaseHistory
                     {
                         Id = p.Id,
-                        UserId = p.PersonId,
+                        PersonId = p.PersonId,
                         BookId = p.BookId,
                         ReviewId = p.ReviewId,
                         Comment = p.Comment,
@@ -89,7 +89,7 @@ namespace Readify.Service
                 return new GetAllPurchaseHistory
                 {
                     Id = purchaseHistory.Id,
-                    UserId = purchaseHistory.PersonId,
+                    PersonId = purchaseHistory.PersonId,
                     BookId = purchaseHistory.BookId,
                     ReviewId = purchaseHistory.ReviewId,
                     Comment = purchaseHistory.Comment,

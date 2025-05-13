@@ -7,7 +7,7 @@
         public DateTime CreatedDate { get; set; }
 
         public Guid BookId { get; set; }
-        public Guid PersonId { get; set; }
+        public string PersonId { get; set; }
 
     }
 }

@@ -11,6 +11,6 @@
         public string ClaimCode { get; set; }
         public DateTime ValidTill { get; set; }
 
-        public Guid PersonId { get; set; }
+        public string PersonId { get; set; }
     }
 }

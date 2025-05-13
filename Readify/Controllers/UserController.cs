@@ -38,8 +38,8 @@ namespace Readify.Controllers
                 }
             }
 
-            [HttpGet("{id:guid}")]
-            public IActionResult GetById(Guid id)
+            [HttpGet("{id}")]
+            public IActionResult GetById(string id)
             {
                 try
                 {
@@ -52,8 +52,8 @@ namespace Readify.Controllers
                 }
             }
 
-            [HttpDelete("{id:guid}")]
-            public IActionResult DeleteUser(Guid id)
+            [HttpDelete("{id}")]
+            public IActionResult DeleteUser(string id)
             {
                 try
                 {
@@ -67,8 +67,8 @@ namespace Readify.Controllers
                 }
             }
 
-           [HttpPut("{id:guid}")]
-            public IActionResult UpadteUser(Guid id, [FromBody] UpdateUserDto userDto)
+           [HttpPut("{id}")]
+            public IActionResult UpdateUser(string id, [FromBody] UpdateUserDto userDto)
             {
                 try
                 {

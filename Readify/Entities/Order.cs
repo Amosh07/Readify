@@ -17,9 +17,9 @@ namespace Readify.Entities
         public string ClaimCode { get; set; }
         public DateTime ValidTill { get; set; }
 
-        public Guid PersonId { get; set; } // FK to User
+        public string PersonId { get; set; } // FK to User
 
-        public virtual User? User { get; set; }
+        public virtual ApplicationUser? User { get; set; }
 
         public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
