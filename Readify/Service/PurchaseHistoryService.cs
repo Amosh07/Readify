@@ -124,8 +124,8 @@ namespace Readify.Service
         {
             var query = _context.PurchaseHistories.AsQueryable();
 
-            if (filter.PersonId.HasValue)
-                query = query.Where(p => p.PersonId == filter.PersonId.Value);
+            if (!string.IsNullOrWhiteSpace(filter.PersonId))
+                query = query.Where(p => p.PersonId == filter.PersonId);
 
             if (filter.BookId.HasValue)
                 query = query.Where(p => p.BookId == filter.BookId.Value);
@@ -145,7 +145,7 @@ namespace Readify.Service
             return query.Select(p => new GetAllPurchaseHistory
             {
                 Id = p.Id,
-                UserId = p.PersonId,
+                PersonId = p.PersonId,
                 BookId = p.BookId,
                 ReviewId = p.ReviewId,
                 Comment = p.Comment,
