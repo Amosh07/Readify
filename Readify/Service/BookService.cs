@@ -27,8 +27,7 @@ namespace Readify.Service
                     PublisherId = bookDto.PublisherId,
                     CategoryId = bookDto.CategoryId,
                     LanguageId = bookDto.LanguageId,
-                    //OrderItemId = bookDto.OrderItemId,
-                    //WhitelistId = bookDto.WhiteListId,
+                    ImageURL = bookDto.ImageUrl,
                     Format = bookDto.Format,
                     Description = bookDto.Description,
                     Price = bookDto.Price,
@@ -84,8 +83,7 @@ namespace Readify.Service
                         PublisherId = b.PublisherId,
                         CategoryId = b.CategoryId,
                         LanguageId = b.LanguageId,
-                        //OrderItemId = b.OrderItemId,
-                        //WhiteListId = b.WhitelistId,
+                        ImageUrl = b.ImageURL,
                         Format = b.Format,
                         Description = b.Description,
                         Price = b.Price,
@@ -121,8 +119,7 @@ namespace Readify.Service
                     PublisherId = book.PublisherId,
                     CategoryId = book.CategoryId,
                     LanguageId = book.LanguageId,
-                    //OrderItemId= book.OrderItemId,
-                    //WhiteListId= book.WhitelistId,
+                    ImageUrl= book.ImageURL,
                     Format = book.Format,
                     Description = book.Description,
                     Price = book.Price,
@@ -152,8 +149,7 @@ namespace Readify.Service
                 book.PublisherId = bookDto.PublisherId;
                 book.CategoryId = bookDto.CategoryId;
                 book.LanguageId = bookDto.LanguageId;
-                //book.OrderItemId = bookDto.OrderItemId;
-                //book.WhitelistId = bookDto.WhiteListId;
+                book.ImageURL = bookDto.ImageUrl;
                 book.Format = bookDto.Format;
                 book.Description = bookDto.Description;
                 book.Price = bookDto.Price;

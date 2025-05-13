@@ -251,6 +251,7 @@ namespace Readify.Migrations
                     Price = table.Column<decimal>(type: "numeric", nullable: false),
                     Stock = table.Column<int>(type: "integer", nullable: false),
                     TotalSold = table.Column<int>(type: "integer", nullable: false),
+                    ImageURL = table.Column<string>(type: "text", nullable: true),
                     PublishDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     AuthorId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -460,17 +461,17 @@ namespace Readify.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "b858bcdb-f01a-4660-85e9-cb941bc11b90", null, "Admin", "ADMIN" });
+                values: new object[] { "b8217b6e-aafb-4929-a559-84dead5156c3", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "Gender", "ImageUrl", "IsActive", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RegisteredDate", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "cdf39635-d5ba-47b6-95bd-5a11607e5e5b", 0, "63b29a16-676a-45e4-ab81-9111cce08599", "admin@gmail.com", true, "", 0, "", true, "", false, null, "ADMIN@YOURAPP.COM", "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEHv7EmQLZJynSTVHBowDYf/3KCCPvgojYwbXSQDyn8BjrjxFzy2hN9H1o7DedyWMIw==", null, false, new DateTime(2025, 5, 13, 15, 46, 2, 300, DateTimeKind.Utc).AddTicks(8030), "eeeabaa3-bc81-4d6c-81f2-b56ea5ef5d66", false, "admin@gmail.com" });
+                values: new object[] { "23ec2d10-a988-4fa7-9a09-4ff244982432", 0, "ac9657af-bc1b-4389-9f53-1c6b4b4bdcd2", "admin@gmail.com", true, "", 0, "", true, "", false, null, "ADMIN@YOURAPP.COM", "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEBoGfbzMb40oxxAPP++waDObaub2L+hlBxm/PIbvyfK4/Ue668Fk32fGsNUc5vp2xg==", null, false, new DateTime(2025, 5, 13, 16, 39, 2, 601, DateTimeKind.Utc).AddTicks(9634), "f39d1092-be8e-4bfd-abf5-9df3598dfb3b", false, "admin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "b858bcdb-f01a-4660-85e9-cb941bc11b90", "cdf39635-d5ba-47b6-95bd-5a11607e5e5b" });
+                values: new object[] { "b8217b6e-aafb-4929-a559-84dead5156c3", "23ec2d10-a988-4fa7-9a09-4ff244982432" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

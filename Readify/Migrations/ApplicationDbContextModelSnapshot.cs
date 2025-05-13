@@ -50,7 +50,7 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b858bcdb-f01a-4660-85e9-cb941bc11b90",
+                            Id = "b8217b6e-aafb-4929-a559-84dead5156c3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -145,8 +145,8 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "cdf39635-d5ba-47b6-95bd-5a11607e5e5b",
-                            RoleId = "b858bcdb-f01a-4660-85e9-cb941bc11b90"
+                            UserId = "23ec2d10-a988-4fa7-9a09-4ff244982432",
+                            RoleId = "b8217b6e-aafb-4929-a559-84dead5156c3"
                         });
                 });
 
@@ -256,9 +256,9 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cdf39635-d5ba-47b6-95bd-5a11607e5e5b",
+                            Id = "23ec2d10-a988-4fa7-9a09-4ff244982432",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "63b29a16-676a-45e4-ab81-9111cce08599",
+                            ConcurrencyStamp = "ac9657af-bc1b-4389-9f53-1c6b4b4bdcd2",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "",
@@ -269,10 +269,10 @@ namespace Readify.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@YOURAPP.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHv7EmQLZJynSTVHBowDYf/3KCCPvgojYwbXSQDyn8BjrjxFzy2hN9H1o7DedyWMIw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBoGfbzMb40oxxAPP++waDObaub2L+hlBxm/PIbvyfK4/Ue668Fk32fGsNUc5vp2xg==",
                             PhoneNumberConfirmed = false,
-                            RegisteredDate = new DateTime(2025, 5, 13, 15, 46, 2, 300, DateTimeKind.Utc).AddTicks(8030),
-                            SecurityStamp = "eeeabaa3-bc81-4d6c-81f2-b56ea5ef5d66",
+                            RegisteredDate = new DateTime(2025, 5, 13, 16, 39, 2, 601, DateTimeKind.Utc).AddTicks(9634),
+                            SecurityStamp = "f39d1092-be8e-4bfd-abf5-9df3598dfb3b",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -321,6 +321,9 @@ namespace Readify.Migrations
 
                     b.Property<string>("ISBN")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImageURL")
                         .HasColumnType("text");
 
                     b.Property<Guid>("LanguageId")

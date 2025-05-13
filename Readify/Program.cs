@@ -86,6 +86,7 @@ builder.Services.AddScoped<IPublisherService, PublisherService>();
 builder.Services.AddScoped<IWhiteListService, WhiteListService>();
 builder.Services.AddScoped<IPurchaseHistoryService, PurchaseHistoryService>();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -114,5 +115,7 @@ app.MapIdentityApi<ApplicationUser>();
 
 // Map controller endpoints
 app.MapControllers();
+
+app.UseStaticFiles();
 
 app.Run();

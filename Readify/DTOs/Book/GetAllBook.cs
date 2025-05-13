@@ -8,6 +8,9 @@
 
         public string Title { get; set; }
 
+        public string? ImageUrl { get; set; }
+
+
         public Guid AuthorId { get; set; }
 
         public Guid PublisherId { get; set; }

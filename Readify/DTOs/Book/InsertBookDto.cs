@@ -8,7 +8,7 @@
         public Guid PublisherId { get; set; }
         public Guid CategoryId { get; set; }
         public Guid LanguageId { get; set; }
-    
+        public string? ImageUrl { get; set; }
         public string Format { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
