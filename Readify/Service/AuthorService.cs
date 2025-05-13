@@ -53,8 +53,7 @@ namespace Readify.Service
         {
             try
             {
-                var author
-                    = _context.Authors.Where(a => a.isActive).ToList();
+                var author = _context.Authors.ToList();
                 if (author == null)
                     throw new Exception("No active author found");
 

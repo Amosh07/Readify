@@ -56,6 +56,8 @@ namespace Readify.Service
             try
             {
                 var purchaseHistories = _context.PurchaseHistories.ToList();
+                if (purchaseHistories == null || !purchaseHistories.Any())
+                    throw new Exception("No purchase histories found");
                 var purchaseHistoryDto = new List<GetAllPurchaseHistory>();
                 foreach (var p in purchaseHistories)
                 {

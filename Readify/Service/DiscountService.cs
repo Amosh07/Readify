@@ -126,9 +126,5 @@ namespace Readify.Service
                 throw new Exception("Error updating discount: " + ex.Message);
             }
         }
-        List<GetAllDiscount> IDiscountService.GetAllDiscounts()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

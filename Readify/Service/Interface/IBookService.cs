@@ -1,4 +1,5 @@
 ﻿using Readify.DTOs.Book;
+using Readify.Entities;
 
 namespace Readify.Service.Interface
 {
@@ -13,5 +14,7 @@ namespace Readify.Service.Interface
         void DeleteBook(Guid id);
 
         void UpdateBook(Guid id, UpdateBookDto bookDto);
+
+        Task<IEnumerable<Book>> FilterBooksAsync(BookSearchFilterDto filters);
     }
 }

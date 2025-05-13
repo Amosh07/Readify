@@ -54,12 +54,12 @@ namespace Readify.Service
         {
             try
             {
-                var categorys = _context.Categorys.ToList();
-                if (categorys == null || !categorys.Any())
+                var categories = _context.Categorys.ToList();
+                if (categories == null || !categories.Any())
                     throw new Exception("No category found");
 
                 var result = new List<GetAllCategory>();
-                foreach (var b in categorys)
+                foreach (var b in categories)
                 {
                     result.Add(new GetAllCategory
                     {
@@ -72,7 +72,7 @@ namespace Readify.Service
             }
             catch (Exception ex)
             {
-                throw new Exception("Error fetching category: " + ex.Message);
+                throw new Exception("Error fetching categories: " + ex.Message);
             }
         }
 
@@ -116,10 +116,6 @@ namespace Readify.Service
             {
                 throw new Exception("Error updating category: " + ex.Message);
             }
-        }
-        List<GetAllCategory> ICategoryService.GetAllCategories()
-        {
-            throw new NotImplementedException();
         }
     }
 }

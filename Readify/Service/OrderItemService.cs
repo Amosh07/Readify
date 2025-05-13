@@ -57,10 +57,12 @@ namespace Readify.Service
             try
             {
                 var orderItems = _context.OrderItems.ToList();
-                var orderItemDtos = new List<GetAllOrderItem>();
+                if (orderItems == null || !orderItems.Any())
+                    throw new Exception("No order items found");
+                var result = new List<GetAllOrderItem>();
                 foreach (var o in orderItems)
                 {
-                    orderItemDtos.Add(new GetAllOrderItem
+                    result.Add(new GetAllOrderItem
                     {
                         Id = o.Id,
                         Qty = o.Qty,
@@ -70,7 +72,7 @@ namespace Readify.Service
                         BookId = o.BookId,
                     });
                 }
-                return orderItemDtos;
+                return result;
             }
             catch (Exception ex)
             {
