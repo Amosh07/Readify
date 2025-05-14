@@ -4,6 +4,7 @@ using Readify.Service.Interface;
 using Readify.Service;
 using Microsoft.OpenApi.Models;
 using Readify.Entities;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,6 +69,7 @@ builder.Services.AddSwaggerGen(option =>
 builder.Services.AddAuthentication();
 
 builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
+     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(
@@ -85,9 +87,20 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IPublisherService, PublisherService>();
 builder.Services.AddScoped<IWhiteListService, WhiteListService>();
 builder.Services.AddScoped<IPurchaseHistoryService, PurchaseHistoryService>();
+builder.Services.AddScoped<IAnnouncementService, AnnouncementService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+    await SeedRolesAsync(roleManager);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -119,3 +132,15 @@ app.MapControllers();
 app.UseStaticFiles();
 
 app.Run();
+
+async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
+{
+    string[] roles = { "Admin", "User" };
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+}

@@ -50,9 +50,15 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "da5a81ea-67b3-4e66-9088-2345f5c62c55",
+                            Id = "ade5c62c-37c9-4a89-8b16-5bd789428562",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "ffc11774-504a-4051-95c9-a9080ee2a954",
+                            Name = "User",
+                            NormalizedName = "USER"
                         });
                 });
 
@@ -79,88 +85,6 @@ namespace Readify.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "ac7cf42c-faf0-4f8f-836e-0cd0bd197a3c",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "8856d4f3-3e19-4611-8295-02dc909cc929",
-                            Email = "amoshhamal7@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@YOURAPP.COM",
-                            NormalizedUserName = "AMOSHHAMAL7@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO/KdDqeX3/EbYIahMwimo9HJzj3yoQwxwiL0hVbNzN8F3TV+CsBBFo2nqWatbFbIg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "16d1cc5b-bca7-4e98-a6c2-adf0c9e6c85c",
-                            TwoFactorEnabled = false,
-                            UserName = "amoshhamal7@gmail.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -227,8 +151,8 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "ac7cf42c-faf0-4f8f-836e-0cd0bd197a3c",
-                            RoleId = "da5a81ea-67b3-4e66-9088-2345f5c62c55"
+                            UserId = "61e43352-049d-4848-ae5b-ca9847863a39",
+                            RoleId = "ade5c62c-37c9-4a89-8b16-5bd789428562"
                         });
                 });
 
@@ -249,6 +173,25 @@ namespace Readify.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Readify.Entities.Announcement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("AnnouncementContent")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("AnnouncementTitle")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Announcements");
                 });
 
             modelBuilder.Entity("Readify.Entities.ApplicationUser", b =>
@@ -338,9 +281,9 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "23ec2d10-a988-4fa7-9a09-4ff244982432",
+                            Id = "61e43352-049d-4848-ae5b-ca9847863a39",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ac9657af-bc1b-4389-9f53-1c6b4b4bdcd2",
+                            ConcurrencyStamp = "346c850e-66df-4273-b6fe-eafcc6c168a7",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "",
@@ -351,10 +294,10 @@ namespace Readify.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@YOURAPP.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBoGfbzMb40oxxAPP++waDObaub2L+hlBxm/PIbvyfK4/Ue668Fk32fGsNUc5vp2xg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOiiD/aollG3TvjK5oZao9Z3WjB+WbBeSigA0lVtey+fLMwWA2f2tT8+1vpLXn5Jhw==",
                             PhoneNumberConfirmed = false,
-                            RegisteredDate = new DateTime(2025, 5, 13, 16, 39, 2, 601, DateTimeKind.Utc).AddTicks(9634),
-                            SecurityStamp = "f39d1092-be8e-4bfd-abf5-9df3598dfb3b",
+                            RegisteredDate = new DateTime(2025, 5, 14, 4, 56, 58, 808, DateTimeKind.Utc).AddTicks(8187),
+                            SecurityStamp = "53574d4b-01a9-4671-ad9d-8ce3c8b9fa5d",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -440,8 +383,6 @@ namespace Readify.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.HasIndex("WhitelistId");
-
                     b.ToTable("Books");
                 });
 
@@ -490,34 +431,6 @@ namespace Readify.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categorys");
-                });
-
-            modelBuilder.Entity("Readify.Entities.Discount", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("DiscountPercentage")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("isOnSale")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("Discounts");
                 });
 
             modelBuilder.Entity("Readify.Entities.Discount", b =>
@@ -697,28 +610,7 @@ namespace Readify.Migrations
                     b.Property<Guid?>("BookId1")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("ReviewDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("rating")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("Review");
-                });
-
-            modelBuilder.Entity("Readify.Entities.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("FirstName")
+                    b.Property<string>("PersonId")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -736,7 +628,7 @@ namespace Readify.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("User");
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Readify.Entities.Whitelist", b =>

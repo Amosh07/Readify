@@ -1,22 +1,22 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Readify.DTOs.Author;
+using Readify.DTOs.Review;
 using Readify.Service.Interface;
 
 namespace Readify.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/author")]
-    public class AuthorController(IAuthorService authorService) : Controller
+    [Route("api/review")]
+    public class ReviewController(IReviewService reviewService) : Controller
     {
         [HttpPost("Add")]
-        public IActionResult AddAuthor([FromBody] InsertAuthorDto authorDto)
+        public IActionResult AddReview([FromBody] InsertReviewDto reviewDto)
         {
             try
             {
-                authorService.AddAuthor(authorDto);
-                return Ok("Author added successfully");
+                reviewService.AddReview(reviewDto);
+                return Ok("Review added successfully");
 
             }
             catch (Exception ex)
@@ -30,7 +30,7 @@ namespace Readify.Controllers
         {
             try
             {
-                var result = authorService.GetAllAuthors();
+                var result = reviewService.GetAllReview();
                 return Ok(result);
 
             }
@@ -45,7 +45,7 @@ namespace Readify.Controllers
         {
             try
             {
-                var result = authorService.GetById(id);
+                var result = reviewService.GetById(id);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -55,12 +55,12 @@ namespace Readify.Controllers
         }
 
         [HttpDelete("{id:guid}")]
-        public IActionResult DeleteAuthor(Guid id)
+        public IActionResult DeleteReview(Guid id)
         {
             try
             {
-                authorService.DeleteAuthor(id);
-                return Ok("author deleted successfully");
+                reviewService.DeleteReview(id);
+                return Ok("review deleted successfully");
 
             }
             catch (Exception ex)
@@ -70,26 +70,18 @@ namespace Readify.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public IActionResult UpdateAuthor(Guid id, [FromBody] UpdateAuthorDto authorDto)
+        public IActionResult UpdateReview(Guid id, [FromBody] UpdateReviewDto reviewDto)
         {
             try
             {
-                authorService.UpdateAuthor(id, authorDto);
-                return Ok("Author updated successfully");
+                reviewService.UpdateReview(id, reviewDto);
+                return Ok("Review updated successfully");
 
             }
             catch (Exception ex)
-            { 
+            {
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpGet("search")]
-        public async Task<IActionResult> SearchAuthors([FromQuery] AuthorSearchFilterDto filters)
-        {
-            var authors = await authorService.FilterAuthorsAsync(filters);
-            return Ok(authors);
-        }
-
     }
 }

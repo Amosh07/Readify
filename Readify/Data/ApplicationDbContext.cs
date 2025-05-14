@@ -23,6 +23,9 @@ namespace Readify.Data
         public DbSet<Whitelist> Whitelists { get; set; }
         public DbSet<PurchaseHistory> PurchaseHistories { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -58,18 +61,6 @@ namespace Readify.Data
                 .HasForeignKey(b => b.LanguageId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //modelBuilder.Entity<Book>()
-            //    .HasOne(b => b.Whitelist)
-            //    .WithMany()
-            //    .HasForeignKey(b => b.WhitelistId)
-            //    .OnDelete(DeleteBehavior.Restrict);
-
-            //modelBuilder.Entity<OrderItem>()
-            //    .HasOne(oi => oi.Book)
-            //    .WithMany(b => b.OrderItems)
-            //    .HasForeignKey(oi => oi.BookId)
-            //    .OnDelete(DeleteBehavior.Cascade);
-
             modelBuilder.Entity<CartItem>()
                 .HasOne(ci => ci.User)
                 .WithMany()
@@ -99,12 +90,6 @@ namespace Readify.Data
                 .WithMany(o => o.OrderItems)
                 .HasForeignKey(oi => oi.OrderId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            //modelBuilder.Entity<OrderItem>()
-            //    .HasOne(oi => oi.Book)
-            //    .WithMany(b => b.OrderItems)  
-            //    .HasForeignKey(oi => oi.BookId)
-            //    .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<PurchaseHistory>()
                 .HasOne(ph => ph.User)
@@ -151,6 +136,7 @@ namespace Readify.Data
 
             // Seed Role
             var adminRoleId = Guid.NewGuid().ToString();
+            var userRoleId = Guid.NewGuid().ToString();
             var adminUserId = Guid.NewGuid().ToString();
 
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
@@ -158,7 +144,15 @@ namespace Readify.Data
                 Id = adminRoleId,
                 Name = "Admin",
                 NormalizedName = "ADMIN"
-            });
+            },
+
+                new IdentityRole
+                {
+                    Id = userRoleId,
+                    Name = "User",
+                    NormalizedName = "USER"
+                }
+            );
 
             // Create password hasher to hash the password
             var hasher = new PasswordHasher<ApplicationUser>();

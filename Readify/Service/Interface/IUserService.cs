@@ -5,7 +5,7 @@ namespace Readify.Service.Interface
 {
     public interface IUserServices
     {
-        void AddUser(InsertUserDto userDto);
+        Task AddUser(InsertUserDto userDto);
 
         List<GetAllUser> GetAllUsers();
 

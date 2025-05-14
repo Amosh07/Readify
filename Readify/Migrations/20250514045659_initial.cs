@@ -4,6 +4,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Readify.Migrations
 {
     /// <inheritdoc />
@@ -12,6 +14,19 @@ namespace Readify.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Announcements",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    AnnouncementTitle = table.Column<string>(type: "text", nullable: false),
+                    AnnouncementContent = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Announcements", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -366,7 +381,7 @@ namespace Readify.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Review",
+                name: "Reviews",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -378,21 +393,21 @@ namespace Readify.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Review", x => x.Id);
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Review_AspNetUsers_PersonId",
+                        name: "FK_Reviews_AspNetUsers_PersonId",
                         column: x => x.PersonId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Review_Books_BookId",
+                        name: "FK_Reviews_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Review_Books_BookId1",
+                        name: "FK_Reviews_Books_BookId1",
                         column: x => x.BookId1,
                         principalTable: "Books",
                         principalColumn: "Id");
@@ -451,9 +466,9 @@ namespace Readify.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PurchaseHistories_Review_ReviewId",
+                        name: "FK_PurchaseHistories_Reviews_ReviewId",
                         column: x => x.ReviewId,
-                        principalTable: "Review",
+                        principalTable: "Reviews",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -461,17 +476,21 @@ namespace Readify.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "b8217b6e-aafb-4929-a559-84dead5156c3", null, "Admin", "ADMIN" });
+                values: new object[,]
+                {
+                    { "ade5c62c-37c9-4a89-8b16-5bd789428562", null, "Admin", "ADMIN" },
+                    { "ffc11774-504a-4051-95c9-a9080ee2a954", null, "User", "USER" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "Gender", "ImageUrl", "IsActive", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RegisteredDate", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "23ec2d10-a988-4fa7-9a09-4ff244982432", 0, "ac9657af-bc1b-4389-9f53-1c6b4b4bdcd2", "admin@gmail.com", true, "", 0, "", true, "", false, null, "ADMIN@YOURAPP.COM", "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEBoGfbzMb40oxxAPP++waDObaub2L+hlBxm/PIbvyfK4/Ue668Fk32fGsNUc5vp2xg==", null, false, new DateTime(2025, 5, 13, 16, 39, 2, 601, DateTimeKind.Utc).AddTicks(9634), "f39d1092-be8e-4bfd-abf5-9df3598dfb3b", false, "admin@gmail.com" });
+                values: new object[] { "61e43352-049d-4848-ae5b-ca9847863a39", 0, "346c850e-66df-4273-b6fe-eafcc6c168a7", "admin@gmail.com", true, "", 0, "", true, "", false, null, "ADMIN@YOURAPP.COM", "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEOiiD/aollG3TvjK5oZao9Z3WjB+WbBeSigA0lVtey+fLMwWA2f2tT8+1vpLXn5Jhw==", null, false, new DateTime(2025, 5, 14, 4, 56, 58, 808, DateTimeKind.Utc).AddTicks(8187), "53574d4b-01a9-4671-ad9d-8ce3c8b9fa5d", false, "admin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "b8217b6e-aafb-4929-a559-84dead5156c3", "23ec2d10-a988-4fa7-9a09-4ff244982432" });
+                values: new object[] { "ade5c62c-37c9-4a89-8b16-5bd789428562", "61e43352-049d-4848-ae5b-ca9847863a39" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -576,18 +595,18 @@ namespace Readify.Migrations
                 column: "ReviewId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Review_BookId",
-                table: "Review",
+                name: "IX_Reviews_BookId",
+                table: "Reviews",
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Review_BookId1",
-                table: "Review",
+                name: "IX_Reviews_BookId1",
+                table: "Reviews",
                 column: "BookId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Review_PersonId",
-                table: "Review",
+                name: "IX_Reviews_PersonId",
+                table: "Reviews",
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
@@ -604,6 +623,9 @@ namespace Readify.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Announcements");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -641,7 +663,7 @@ namespace Readify.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Review");
+                name: "Reviews");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

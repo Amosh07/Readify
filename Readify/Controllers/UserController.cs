@@ -11,11 +11,11 @@ namespace Readify.Controllers
     public class UserController(IUserServices userServices) : Controller
     {
             [HttpPost("Add")]
-            public IActionResult AddUser([FromBody] InsertUserDto userdto)
+            public async Task<IActionResult> AddUser([FromBody] InsertUserDto userdto)
             {
                 try
                 {
-                    userServices.AddUser(userdto);
+                    await userServices.AddUser(userdto); // ✅ Await the async method
                     return Ok("User added successfully");
                 }
                 catch (Exception ex)
@@ -24,7 +24,7 @@ namespace Readify.Controllers
                 }
             }
 
-            [HttpGet("GetByAll")]
+        [HttpGet("GetByAll")]
             public IActionResult GetByAll()
             {
                 try
