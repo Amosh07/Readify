@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Readify.Data;
@@ -11,9 +12,11 @@ using Readify.Data;
 namespace Readify.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250511125946_redify")]
+    partial class redify
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -251,115 +254,6 @@ namespace Readify.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Readify.Entities.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("RegisteredDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "23ec2d10-a988-4fa7-9a09-4ff244982432",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "ac9657af-bc1b-4389-9f53-1c6b4b4bdcd2",
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "",
-                            Gender = 0,
-                            ImageUrl = "",
-                            IsActive = true,
-                            LastName = "",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@YOURAPP.COM",
-                            NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBoGfbzMb40oxxAPP++waDObaub2L+hlBxm/PIbvyfK4/Ue668Fk32fGsNUc5vp2xg==",
-                            PhoneNumberConfirmed = false,
-                            RegisteredDate = new DateTime(2025, 5, 13, 16, 39, 2, 601, DateTimeKind.Utc).AddTicks(9634),
-                            SecurityStamp = "f39d1092-be8e-4bfd-abf5-9df3598dfb3b",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@gmail.com"
-                        });
-                });
-
             modelBuilder.Entity("Readify.Entities.Author", b =>
                 {
                     b.Property<Guid>("Id")
@@ -405,10 +299,10 @@ namespace Readify.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ImageURL")
-                        .HasColumnType("text");
-
                     b.Property<Guid>("LanguageId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("OrderitemsId")
                         .HasColumnType("uuid");
 
                     b.Property<decimal>("Price")
@@ -430,6 +324,9 @@ namespace Readify.Migrations
                     b.Property<int>("TotalSold")
                         .HasColumnType("integer");
 
+                    b.Property<Guid>("WhitelistId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
@@ -437,6 +334,9 @@ namespace Readify.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("LanguageId");
+
+                    b.HasIndex("OrderitemsId")
+                        .IsUnique();
 
                     b.HasIndex("PublisherId");
 
@@ -457,9 +357,8 @@ namespace Readify.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("PersonId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Qty")
                         .HasColumnType("integer");
@@ -490,34 +389,6 @@ namespace Readify.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categorys");
-                });
-
-            modelBuilder.Entity("Readify.Entities.Discount", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("DiscountPercentage")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("isOnSale")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("Discounts");
                 });
 
             modelBuilder.Entity("Readify.Entities.Discount", b =>
@@ -585,9 +456,8 @@ namespace Readify.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("PersonId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -664,14 +534,16 @@ namespace Readify.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("PersonId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("ReviewId")
+                    b.Property<Guid?>("RatingId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("Review")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -680,7 +552,7 @@ namespace Readify.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.HasIndex("ReviewId");
+                    b.HasIndex("RatingId");
 
                     b.ToTable("PurchaseHistories");
                 });
@@ -694,7 +566,7 @@ namespace Readify.Migrations
                     b.Property<Guid>("BookId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("BookId1")
+                    b.Property<Guid>("PersonId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("ReviewDate")
@@ -722,19 +594,24 @@ namespace Readify.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Rating")
+                    b.Property<int>("Gender")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("ReviewDate")
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("RegisteredDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("BookId1");
-
-                    b.HasIndex("PersonId");
 
                     b.ToTable("User");
                 });
@@ -751,9 +628,8 @@ namespace Readify.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("PersonId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -775,7 +651,7 @@ namespace Readify.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Readify.Entities.ApplicationUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -784,7 +660,7 @@ namespace Readify.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Readify.Entities.ApplicationUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -799,7 +675,7 @@ namespace Readify.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Readify.Entities.ApplicationUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -808,7 +684,7 @@ namespace Readify.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Readify.Entities.ApplicationUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -820,25 +696,37 @@ namespace Readify.Migrations
                     b.HasOne("Readify.Entities.Author", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Readify.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Readify.Entities.Language", "Language")
                         .WithMany()
                         .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Readify.Entities.OrderItem", "OrderItem")
+                        .WithOne()
+                        .HasForeignKey("Readify.Entities.Book", "OrderitemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Readify.Entities.Publisher", "Publisher")
                         .WithMany()
                         .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Readify.Entities.Whitelist", "Whitelist")
+                        .WithMany()
+                        .HasForeignKey("WhitelistId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Author");
@@ -847,7 +735,11 @@ namespace Readify.Migrations
 
                     b.Navigation("Language");
 
+                    b.Navigation("OrderItem");
+
                     b.Navigation("Publisher");
+
+                    b.Navigation("Whitelist");
                 });
 
             modelBuilder.Entity("Readify.Entities.CartItem", b =>
@@ -858,7 +750,7 @@ namespace Readify.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Readify.Entities.ApplicationUser", "User")
+                    b.HasOne("Readify.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -882,7 +774,7 @@ namespace Readify.Migrations
 
             modelBuilder.Entity("Readify.Entities.Order", b =>
                 {
-                    b.HasOne("Readify.Entities.ApplicationUser", "User")
+                    b.HasOne("Readify.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -900,7 +792,7 @@ namespace Readify.Migrations
                         .IsRequired();
 
                     b.HasOne("Readify.Entities.Order", "Order")
-                        .WithMany("OrderItems")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -918,7 +810,7 @@ namespace Readify.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Readify.Entities.ApplicationUser", "User")
+                    b.HasOne("Readify.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -926,9 +818,7 @@ namespace Readify.Migrations
 
                     b.HasOne("Readify.Entities.Review", "Rating")
                         .WithMany()
-                        .HasForeignKey("ReviewId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RatingId");
 
                     b.Navigation("Book");
 
@@ -945,11 +835,7 @@ namespace Readify.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Readify.Entities.Book", null)
-                        .WithMany("Reviews")
-                        .HasForeignKey("BookId1");
-
-                    b.HasOne("Readify.Entities.ApplicationUser", "User")
+                    b.HasOne("Readify.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -968,7 +854,7 @@ namespace Readify.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Readify.Entities.ApplicationUser", "User")
+                    b.HasOne("Readify.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -977,16 +863,6 @@ namespace Readify.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Readify.Entities.Book", b =>
-                {
-                    b.Navigation("Reviews");
-                });
-
-            modelBuilder.Entity("Readify.Entities.Order", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }
