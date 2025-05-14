@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Readify.Data;
+﻿using Readify.Data;
 using Readify.DTOs.Announcement;
-using Readify.DTOs.Author;
 using Readify.Entities;
 using Readify.Service.Interface;
 
@@ -10,6 +8,12 @@ namespace Readify.Service
     public class AnnouncementService : IAnnouncementService
     {
         private readonly ApplicationDbContext _context;
+
+        public AnnouncementService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public void AddAnnouncement(InsertAnnouncementDto announcementDto)
         {
             try

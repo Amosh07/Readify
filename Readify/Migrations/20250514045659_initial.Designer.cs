@@ -12,7 +12,7 @@ using Readify.Data;
 namespace Readify.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250513163902_initial")]
+    [Migration("20250514045659_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -53,9 +53,15 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b8217b6e-aafb-4929-a559-84dead5156c3",
+                            Id = "ade5c62c-37c9-4a89-8b16-5bd789428562",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "ffc11774-504a-4051-95c9-a9080ee2a954",
+                            Name = "User",
+                            NormalizedName = "USER"
                         });
                 });
 
@@ -148,8 +154,8 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "23ec2d10-a988-4fa7-9a09-4ff244982432",
-                            RoleId = "b8217b6e-aafb-4929-a559-84dead5156c3"
+                            UserId = "61e43352-049d-4848-ae5b-ca9847863a39",
+                            RoleId = "ade5c62c-37c9-4a89-8b16-5bd789428562"
                         });
                 });
 
@@ -170,6 +176,25 @@ namespace Readify.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Readify.Entities.Announcement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("AnnouncementContent")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("AnnouncementTitle")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Announcements");
                 });
 
             modelBuilder.Entity("Readify.Entities.ApplicationUser", b =>
@@ -259,9 +284,9 @@ namespace Readify.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "23ec2d10-a988-4fa7-9a09-4ff244982432",
+                            Id = "61e43352-049d-4848-ae5b-ca9847863a39",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ac9657af-bc1b-4389-9f53-1c6b4b4bdcd2",
+                            ConcurrencyStamp = "346c850e-66df-4273-b6fe-eafcc6c168a7",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "",
@@ -272,10 +297,10 @@ namespace Readify.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@YOURAPP.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBoGfbzMb40oxxAPP++waDObaub2L+hlBxm/PIbvyfK4/Ue668Fk32fGsNUc5vp2xg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOiiD/aollG3TvjK5oZao9Z3WjB+WbBeSigA0lVtey+fLMwWA2f2tT8+1vpLXn5Jhw==",
                             PhoneNumberConfirmed = false,
-                            RegisteredDate = new DateTime(2025, 5, 13, 16, 39, 2, 601, DateTimeKind.Utc).AddTicks(9634),
-                            SecurityStamp = "f39d1092-be8e-4bfd-abf5-9df3598dfb3b",
+                            RegisteredDate = new DateTime(2025, 5, 14, 4, 56, 58, 808, DateTimeKind.Utc).AddTicks(8187),
+                            SecurityStamp = "53574d4b-01a9-4671-ad9d-8ce3c8b9fa5d",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -606,7 +631,7 @@ namespace Readify.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Review");
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Readify.Entities.Whitelist", b =>

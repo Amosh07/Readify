@@ -1,4 +1,4 @@
-﻿using Readify.Data;
+﻿using Microsoft.AspNetCore.Identity;
 using Readify.DTOs.User;
 using Readify.Entities;
 using Readify.Service.Interface;
@@ -7,19 +7,29 @@ namespace Readify.Service
 {
     public class UserService : IUserServices
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserService(ApplicationDbContext context)
+        public UserService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
-        public void AddUser(InsertUserDto userDto)
+        public async Task AddUser(InsertUserDto userDto)
         {
             try
             {
+                var existingUser = await _userManager.FindByEmailAsync(userDto.Email);
+                if (existingUser != null)
+                {
+                    throw new Exception("User with this email already exists.");
+                }
+
                 var user = new ApplicationUser
                 {
+                    UserName = userDto.Email,
+                    Email = userDto.Email,
                     FirstName = userDto.FirstName,
                     LastName = userDto.LastName,
                     Gender = userDto.Gender,
@@ -28,102 +38,83 @@ namespace Readify.Service
                     IsActive = true
                 };
 
-                _context.Users.Add(user);
-                _context.SaveChanges();
+                var result = await _userManager.CreateAsync(user, userDto.Password);
+
+                if (!result.Succeeded)
+                {
+                    throw new Exception("User creation failed: " + string.Join(", ", result.Errors.Select(e => e.Description)));
+                }
+
+                if (!await _roleManager.RoleExistsAsync("User"))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole("User"));
+                }
+
+                await _userManager.AddToRoleAsync(user, "User");
             }
             catch (Exception ex)
             {
-                throw new Exception("Error adding users: " + ex.Message);
+                Console.WriteLine($"Error: {ex.Message}");
+                throw new Exception("Error registering user: " + ex.Message);
             }
         }
 
         public void DeleteUser(string id)
         {
-            try
-            {
-                var user = _context.Users.FirstOrDefault(u => u.Id == id);
-                if (user == null)
-                    throw new Exception("User not found");
+            var user = _userManager.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+                throw new Exception("User not found");
 
-                _context.Users.Remove(user);
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error deleting User" + ex.Message);
-            }
+            _userManager.DeleteAsync(user).Wait();
         }
 
         public List<GetAllUser> GetAllUsers()
         {
-            try
-            {
-                var users = _context.Users.ToList();
-                if (users == null || !users.Any())
-                    throw new Exception("No users found");
+            var users = _userManager.Users.ToList();
+            if (!users.Any())
+                throw new Exception("No users found");
 
-                var result = new List<GetAllUser>();
-                foreach (var u in users)
-                {
-                    result.Add(new GetAllUser
-                    {
-                        Id = u.Id,
-                        FirstName = u.FirstName,
-                        LastName = u.LastName,
-                        Gender = u.Gender,
-                        ImageUrl = u.ImageUrl,
-                        RegisteredDate = u.RegisteredDate,
-                    });
-                }
-                return result;
-            }
-            catch (Exception ex)
+            return users.Select(u => new GetAllUser
             {
-                throw new Exception("Error fetching users: " + ex.Message);
-            }
+                Id = u.Id,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                Gender = u.Gender,
+                ImageUrl = u.ImageUrl,
+                RegisteredDate = u.RegisteredDate
+            }).ToList();
         }
 
         public GetAllUser GetById(string id)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Id == id);
-
+            var user = _userManager.Users.FirstOrDefault(u => u.Id == id);
             if (user == null)
                 throw new Exception("No active users found");
 
-            var result = new GetAllUser()
+            return new GetAllUser
             {
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Gender = user.Gender,
                 ImageUrl = user.ImageUrl,
                 RegisteredDate = user.RegisteredDate
             };
-
-            return result;
         }
 
         public void UpdateUser(string id, UpdateUserDto userDto)
         {
-            try
-            {
-                var user = _context.Users.FirstOrDefault(u => u.Id == id);
-                if (user == null)
-                    throw new Exception("User not found");
-                user.Id = userDto.Id;
-                user.FirstName = userDto.FirstName;
-                user.LastName = userDto.LastName;
-                user.Gender = userDto.Gender;
-                user.ImageUrl = userDto.ImageUrl;
-                user.IsActive = userDto.IsActive;
+            var user = _userManager.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+                throw new Exception("User not found");
 
-                _context.Users.Update(user);
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error Updating user" + ex.Message);
-            }
+            user.FirstName = userDto.FirstName;
+            user.LastName = userDto.LastName;
+            user.Gender = userDto.Gender;
+            user.ImageUrl = userDto.ImageUrl;
+            user.IsActive = userDto.IsActive;
+
+            _userManager.UpdateAsync(user).Wait();
         }
     }
 }
-

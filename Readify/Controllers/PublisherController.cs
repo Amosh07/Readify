@@ -42,6 +42,21 @@ namespace Readify.Controllers
             }
         }
 
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeletePublisher(Guid id)
+        {
+            try
+            {
+                publisherService.DeletePublisher(id);
+                return Ok("publisher deleted successfully");
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("{id:guid}")]
         public IActionResult GetById(Guid id)
         {
