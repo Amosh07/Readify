@@ -22,6 +22,7 @@ namespace Readify.Data
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Whitelist> Whitelists { get; set; }
         public DbSet<PurchaseHistory> PurchaseHistories { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
