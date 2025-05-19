@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Readify.DTOs.Language;
-using Readify.Service;
 using Readify.Service.Interface;
 
 namespace Readify.Controllers

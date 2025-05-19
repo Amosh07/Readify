@@ -5,7 +5,7 @@ using Readify.Service.Interface;
 
 namespace Readify.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/author")]
     public class AuthorController(IAuthorService authorService) : Controller
