@@ -5,7 +5,7 @@ using Readify.Service.Interface;
 
 namespace Readify.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/book")]
 
@@ -26,6 +26,7 @@ namespace Readify.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("GetByAll")]
         public IActionResult GetByAll()
         {
@@ -41,6 +42,7 @@ namespace Readify.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("{id:guid}")]
         public IActionResult GetById(Guid id)
         {

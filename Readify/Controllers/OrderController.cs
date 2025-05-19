@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Readify.DTOs.Order;
-using Readify.Service;
 using Readify.Service.Interface;
 
 namespace Readify.Controllers
